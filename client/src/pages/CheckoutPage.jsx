@@ -24,16 +24,32 @@ export default function CheckoutPage() {
   const [usePoint, setUsePoint] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
+  // 저장된 배송정보 불러오기
+  const getSavedShippingInfo = () => {
+    try {
+      const saved = localStorage.getItem('shippingInfo');
+      return saved ? JSON.parse(saved) : null;
+    } catch {
+      return null;
+    }
+  };
+
+  const savedShipping = getSavedShippingInfo();
+
   const { register, handleSubmit, setValue, watch, formState: { errors } } = useForm({
     defaultValues: {
-      recipientName: user?.name || '',
-      recipientPhone: user?.phone || '',
-      zipcode: user?.zipcode || '',
-      address: user?.address || '',
-      addressDetail: user?.address_detail || '',
-      deliveryMemo: '',
+      recipientName: savedShipping?.recipientName || user?.name || '',
+      recipientPhone: savedShipping?.recipientPhone || user?.phone || '',
+      zipcode: savedShipping?.zipcode || user?.zipcode || '',
+      address: savedShipping?.address || user?.address || '',
+      addressDetail: savedShipping?.addressDetail || user?.address_detail || '',
+      deliveryMemo: savedShipping?.deliveryMemo || '',
+      customMemo: savedShipping?.customMemo || '',
     }
   });
+
+  const deliveryMemo = watch('deliveryMemo');
+  const isCustomMemo = deliveryMemo === 'custom';
 
   useEffect(() => {
     const selectedIds = location.state?.selectedItems || [];
@@ -96,9 +112,27 @@ export default function CheckoutPage() {
     setIsLoading(true);
 
     try {
+      // 배송정보 localStorage에 저장
+      const shippingInfo = {
+        recipientName: formData.recipientName,
+        recipientPhone: formData.recipientPhone,
+        zipcode: formData.zipcode,
+        address: formData.address,
+        addressDetail: formData.addressDetail,
+        deliveryMemo: formData.deliveryMemo,
+        customMemo: formData.customMemo,
+      };
+      localStorage.setItem('shippingInfo', JSON.stringify(shippingInfo));
+
+      // 실제 배송메모 값 결정 (직접입력인 경우 customMemo 사용)
+      const actualDeliveryMemo = formData.deliveryMemo === 'custom'
+        ? formData.customMemo
+        : formData.deliveryMemo;
+
       // 1. 주문 생성
       const orderData = {
         ...formData,
+        deliveryMemo: actualDeliveryMemo,
         items: orderItems.map(item => ({
           productId: item.product_id,
           optionId: item.product_option_id,
@@ -225,7 +259,16 @@ export default function CheckoutPage() {
                       <option value="경비실에 맡겨주세요">경비실에 맡겨주세요</option>
                       <option value="배송 전 연락 바랍니다">배송 전 연락 바랍니다</option>
                       <option value="부재 시 휴대폰으로 연락주세요">부재 시 휴대폰으로 연락주세요</option>
+                      <option value="custom">직접 입력</option>
                     </select>
+                    {isCustomMemo && (
+                      <input
+                        type="text"
+                        className="input mt-2"
+                        placeholder="배송 메모를 입력해주세요"
+                        {...register('customMemo')}
+                      />
+                    )}
                   </div>
                 </div>
               </div>
