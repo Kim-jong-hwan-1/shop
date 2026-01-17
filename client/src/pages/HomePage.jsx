@@ -28,44 +28,46 @@ export default function HomePage() {
     <div>
       {/* 히어로 섹션 */}
       <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white">
-        <div className="container-custom py-16 md:py-24">
-          <div className="grid md:grid-cols-2 gap-8 items-center">
+        <div className="container-custom py-8 md:py-12">
+          <div className="grid md:grid-cols-[1fr_1.5fr] gap-2 items-center">
             {/* 왼쪽: 메인 타이틀 */}
-            <div>
-              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+            <div className="text-center">
+              <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
                 건강한 구강을 위한
                 <br />
                 최고의 선택
               </h1>
-              <p className="text-lg md:text-xl text-primary-100 mb-8">
+              <p className="text-base md:text-lg text-primary-100 mb-6">
                 전문가가 추천하는 프리미엄 구강용품을
                 <br />
                 합리적인 가격에 만나보세요
               </p>
-              <div className="flex gap-4">
-                <Link to="/products" className="btn bg-white text-primary-700 hover:bg-gray-100 btn-lg">
+              <div className="flex gap-3 justify-center">
+                <Link to="/products" className="btn bg-white text-primary-700 hover:bg-gray-100">
                   전체 상품 보기
                 </Link>
-                <Link to="/products?featured=true" className="btn btn-outline border-white text-white hover:bg-white/10 btn-lg">
+                <Link to="/products?featured=true" className="btn btn-outline border-white text-white hover:bg-white/10">
                   베스트 상품
                 </Link>
               </div>
             </div>
 
             {/* 오른쪽: 든든동행회원 혜택 */}
-            <div className="bg-white rounded-2xl overflow-hidden shadow-xl">
+            <div className="bg-white rounded-2xl overflow-hidden shadow-xl grid grid-cols-[1fr_220px]">
               <img
                 src="/donghang.png"
                 alt="든든동행회원 추가 30% 할인"
-                className="w-full h-auto"
+                className="w-full h-full object-cover"
               />
-              <div className="p-6 bg-gradient-to-b from-yellow-50 to-white">
-                <p className="text-gray-700 text-sm mb-4 text-center">
-                  취약계층 고객님을 위한 특별 할인 프로그램<br/>
-                  <span className="text-xs text-gray-500">기초생활수급자 · 차상위계층 · 한부모가정 · 장애인 · 국가유공자 · 다문화가정</span>
+              <div className="p-6 bg-gradient-to-b from-yellow-50 to-white flex flex-col justify-center">
+                <p className="text-gray-700 text-base mb-3 text-center font-semibold">
+                  취약계층 고객님을 위한<br/>특별 할인 프로그램
                 </p>
-                <Link to="/mypage/ddcare" className="btn bg-primary-600 text-white hover:bg-primary-700 font-bold w-full py-3 text-center block">
-                  든든동행회원 인증하기
+                <p className="text-gray-500 text-sm mb-4 text-center leading-relaxed">
+                  기초생활수급자 · 차상위계층<br/>한부모가정 · 장애인<br/>국가유공자 · 다문화가정
+                </p>
+                <Link to="/mypage/ddcare" className="btn bg-primary-600 text-white hover:bg-primary-700 font-bold w-full py-3 text-base text-center block">
+                  인증하기
                 </Link>
               </div>
             </div>
