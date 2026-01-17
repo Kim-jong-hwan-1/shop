@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Truck, Shield, CreditCard, Headphones } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 import { productAPI, categoryAPI } from '@/utils/api';
 import ProductCard from '@/components/common/ProductCard';
 import { ProductGridSkeleton } from '@/components/common/Loading';
@@ -33,14 +33,12 @@ export default function HomePage() {
             {/* 왼쪽: 메인 타이틀 */}
             <div className="text-center">
               <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
-                건강한 구강을 위한
-                <br />
-                최고의 선택
+                사회적 가치를 만듭니다
               </h1>
               <p className="text-base md:text-lg text-primary-100 mb-6">
-                전문가가 추천하는 프리미엄 구강용품을
+                덴탈 CAD 소프트웨어 전문 기업 DLAS가 운영하는
                 <br />
-                합리적인 가격에 만나보세요
+                취약계층을 위한 구강케어 전문 사회적 쇼핑몰
               </p>
               <div className="flex gap-3 justify-center">
                 <Link to="/products" className="btn bg-white text-primary-700 hover:bg-gray-100">
@@ -75,49 +73,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* 특징 섹션 */}
-      <section className="py-8 bg-white border-b">
-        <div className="container-custom">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-primary-600">
-                <Truck size={24} />
-              </div>
-              <div>
-                <p className="font-semibold text-gray-900">무료배송</p>
-                <p className="text-sm text-gray-500">3만원 이상 구매 시</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-primary-600">
-                <Shield size={24} />
-              </div>
-              <div>
-                <p className="font-semibold text-gray-900">정품 보장</p>
-                <p className="text-sm text-gray-500">100% 정품만 판매</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-primary-600">
-                <CreditCard size={24} />
-              </div>
-              <div>
-                <p className="font-semibold text-gray-900">안전결제</p>
-                <p className="text-sm text-gray-500">토스페이먼츠 연동</p>
-              </div>
-            </div>
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 bg-primary-100 rounded-full flex items-center justify-center text-primary-600">
-                <Headphones size={24} />
-              </div>
-              <div>
-                <p className="font-semibold text-gray-900">고객센터</p>
-                <p className="text-sm text-gray-500">1:1 친절 상담</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* 카테고리 섹션 */}
       {categories?.data?.flatCategories && (

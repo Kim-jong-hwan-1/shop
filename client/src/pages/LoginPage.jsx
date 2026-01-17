@@ -41,7 +41,7 @@ export default function LoginPage() {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <h1 className="text-3xl font-bold text-gray-900">로그인</h1>
-          <p className="mt-2 text-gray-600">오랄케어샵에 오신 것을 환영합니다</p>
+          <p className="mt-2 text-gray-600">DLAS care shop에 오신 것을 환영합니다</p>
         </div>
 
         <div className="card p-8">

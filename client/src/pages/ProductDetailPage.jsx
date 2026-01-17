@@ -229,7 +229,7 @@ export default function ProductDetailPage() {
             <div className="bg-gray-50 rounded-lg p-4 mb-6">
               <div className="flex justify-between text-sm mb-2">
                 <span className="text-gray-600">배송비</span>
-                <span className="font-medium">3만원 이상 무료 (미만 2,500원)</span>
+                <span className="font-medium">2,500원</span>
               </div>
               <div className="flex justify-between text-sm">
                 <span className="text-gray-600">배송 예정</span>

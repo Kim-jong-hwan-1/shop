@@ -7,11 +7,17 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
           {/* 회사 정보 */}
           <div className="md:col-span-2">
-            <h2 className="text-xl font-bold text-white mb-4">오랄케어샵</h2>
+            <h2 className="text-3xl text-white mb-4" style={{ fontFamily: 'Cute Font, sans-serif' }}>DLAS 케어 샵</h2>
             <p className="text-sm leading-relaxed mb-4">
-              건강한 구강을 위한 최고의 선택, 오랄케어샵입니다.
+              덴탈 CAD 소프트웨어를 개발해 온 DLAS가 운영하는
               <br />
-              고품질 구강용품을 합리적인 가격에 제공합니다.
+              취약계층을 위한 구강케어 전문 사회적 쇼핑몰입니다.
+              <br /><br />
+              경제적·환경적 이유로 기본적인 구강 위생용품조차
+              <br />
+              충분히 접근하기 어려운 분들을 위해
+              <br />
+              필수 구강케어 제품을 합리적인 가격과 안정적인 품질로 제공합니다.
             </p>
             <div className="text-sm space-y-1">
               <p>상호명: DLAS | 대표: 김종환</p>

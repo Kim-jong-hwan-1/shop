@@ -39,7 +39,7 @@ export default function Header() {
       {/* 상단 바 */}
       <div className="bg-primary-600 text-white text-sm py-1.5">
         <div className="container-custom flex justify-between items-center">
-          <p>3만원 이상 구매 시 무료배송</p>
+          <p>취약계층을 위한 구강케어 전문 사회적 쇼핑몰</p>
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <>
@@ -67,7 +67,7 @@ export default function Header() {
         <div className="flex items-center justify-between gap-4">
           {/* 로고 */}
           <Link to="/" className="flex-shrink-0">
-            <h1 className="text-2xl font-bold text-primary-600">오랄케어샵</h1>
+            <h1 className="text-5xl text-primary-600" style={{ fontFamily: 'Cute Font, sans-serif' }}>DLAS 케어 샵</h1>
           </Link>
 
           {/* 검색바 (데스크톱) */}
