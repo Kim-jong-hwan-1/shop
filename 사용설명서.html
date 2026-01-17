@@ -1,0 +1,2274 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>오랄케어샵 - 사용 설명서</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f5f5f5;
+        }
+
+        /* 네비게이션 사이드바 */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            width: 280px;
+            height: 100vh;
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 20px;
+            overflow-y: auto;
+            z-index: 1000;
+        }
+
+        .sidebar h1 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .sidebar h1 span {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: normal;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+
+        .nav-section {
+            margin-top: 20px;
+        }
+
+        .nav-section h3 {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            opacity: 0.7;
+            margin-bottom: 10px;
+        }
+
+        .nav-section ul {
+            list-style: none;
+        }
+
+        .nav-section li {
+            margin-bottom: 5px;
+        }
+
+        .nav-section a {
+            display: block;
+            padding: 8px 12px;
+            color: rgba(255,255,255,0.9);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.2s;
+            font-size: 0.9rem;
+        }
+
+        .nav-section a:hover {
+            background: rgba(255,255,255,0.1);
+            color: white;
+        }
+
+        /* 메인 콘텐츠 */
+        .main-content {
+            margin-left: 280px;
+            padding: 40px;
+            max-width: 1200px;
+        }
+
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .section h2 {
+            font-size: 1.8rem;
+            color: #1d4ed8;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e5e7eb;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section h3 {
+            font-size: 1.3rem;
+            color: #374151;
+            margin: 30px 0 15px;
+        }
+
+        .section h4 {
+            font-size: 1.1rem;
+            color: #4b5563;
+            margin: 20px 0 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            color: #4b5563;
+        }
+
+        /* 단계별 가이드 */
+        .step-guide {
+            margin: 20px 0;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 10px;
+            border-left: 4px solid #2563eb;
+        }
+
+        .step-number {
+            width: 40px;
+            height: 40px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+
+        .step-content {
+            flex: 1;
+        }
+
+        .step-content h5 {
+            font-size: 1rem;
+            color: #1f2937;
+            margin-bottom: 8px;
+        }
+
+        .step-content p {
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        /* 코드 블록 */
+        .code-block {
+            background: #1e293b;
+            color: #e2e8f0;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+
+        .code-block .comment {
+            color: #94a3b8;
+        }
+
+        .code-block .command {
+            color: #22d3ee;
+        }
+
+        /* 모의 UI 스크린샷 */
+        .mock-ui {
+            background: #f3f4f6;
+            border-radius: 12px;
+            overflow: hidden;
+            margin: 20px 0;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+
+        .mock-browser-bar {
+            background: #e5e7eb;
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .mock-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .mock-dot.red { background: #ef4444; }
+        .mock-dot.yellow { background: #f59e0b; }
+        .mock-dot.green { background: #22c55e; }
+
+        .mock-url {
+            flex: 1;
+            background: white;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-left: 10px;
+        }
+
+        .mock-screen {
+            padding: 20px;
+            background: white;
+        }
+
+        /* 모의 헤더 */
+        .mock-header {
+            background: linear-gradient(135deg, #2563eb 0%, #1d4ed8 100%);
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.85rem;
+        }
+
+        .mock-logo {
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .mock-nav {
+            display: flex;
+            gap: 15px;
+        }
+
+        .mock-nav span {
+            opacity: 0.9;
+            cursor: pointer;
+        }
+
+        /* 모의 폼 */
+        .mock-form {
+            max-width: 400px;
+            margin: 30px auto;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .mock-form h4 {
+            text-align: center;
+            margin-bottom: 20px;
+            color: #1f2937;
+        }
+
+        .mock-input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 6px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+        }
+
+        .mock-btn {
+            width: 100%;
+            padding: 12px;
+            background: #2563eb;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .mock-btn.secondary {
+            background: #6b7280;
+        }
+
+        .mock-btn.success {
+            background: #22c55e;
+        }
+
+        .mock-btn.danger {
+            background: #ef4444;
+        }
+
+        /* 모의 카드 */
+        .mock-card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            padding: 20px;
+        }
+
+        .mock-product-card {
+            background: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+
+        .mock-product-img {
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(45deg, #e0e7ff, #c7d2fe);
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #4f46e5;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .mock-product-name {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #374151;
+            margin-bottom: 5px;
+        }
+
+        .mock-product-price {
+            color: #2563eb;
+            font-weight: bold;
+        }
+
+        /* 모의 테이블 */
+        .mock-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        .mock-table th,
+        .mock-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .mock-table th {
+            background: #f9fafb;
+            font-weight: 600;
+            color: #374151;
+        }
+
+        .mock-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+
+        .mock-badge.pending { background: #fef3c7; color: #d97706; }
+        .mock-badge.paid { background: #dbeafe; color: #2563eb; }
+        .mock-badge.shipped { background: #d1fae5; color: #059669; }
+        .mock-badge.completed { background: #e5e7eb; color: #374151; }
+
+        /* 정보 박스 */
+        .info-box {
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .info-box.tip {
+            background: #ecfdf5;
+            border-left: 4px solid #10b981;
+        }
+
+        .info-box.warning {
+            background: #fffbeb;
+            border-left: 4px solid #f59e0b;
+        }
+
+        .info-box.info {
+            background: #eff6ff;
+            border-left: 4px solid #3b82f6;
+        }
+
+        .info-box h5 {
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-box p {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* 기능 목록 */
+        .feature-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-item {
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 10px;
+            border: 1px solid #e5e7eb;
+        }
+
+        .feature-item h5 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #1f2937;
+            margin-bottom: 10px;
+        }
+
+        .feature-icon {
+            width: 36px;
+            height: 36px;
+            background: #dbeafe;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #2563eb;
+        }
+
+        /* 플로우 차트 */
+        .flow-chart {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin: 30px 0;
+            padding: 20px;
+            background: #f9fafb;
+            border-radius: 10px;
+        }
+
+        .flow-step {
+            padding: 15px 25px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .flow-step.active {
+            background: #2563eb;
+            color: white;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: #9ca3af;
+        }
+
+        /* 반응형 */
+        @media (max-width: 900px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+                padding: 20px;
+            }
+
+            .menu-toggle {
+                display: block;
+                position: fixed;
+                top: 20px;
+                left: 20px;
+                z-index: 1001;
+                background: #2563eb;
+                color: white;
+                border: none;
+                padding: 10px 15px;
+                border-radius: 6px;
+                cursor: pointer;
+            }
+        }
+
+        /* 목차 */
+        .toc {
+            background: #f9fafb;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+        }
+
+        .toc h4 {
+            margin-bottom: 15px;
+            color: #1f2937;
+        }
+
+        .toc ul {
+            list-style: none;
+        }
+
+        .toc li {
+            padding: 5px 0;
+        }
+
+        .toc a {
+            color: #4b5563;
+            text-decoration: none;
+        }
+
+        .toc a:hover {
+            color: #2563eb;
+        }
+
+        /* 아이콘 스타일 */
+        .icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* API 엔드포인트 테이블 */
+        .api-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.9rem;
+        }
+
+        .api-table th,
+        .api-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #e5e7eb;
+        }
+
+        .api-table th {
+            background: #f3f4f6;
+            font-weight: 600;
+        }
+
+        .api-method {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: bold;
+        }
+
+        .api-method.get { background: #d1fae5; color: #059669; }
+        .api-method.post { background: #dbeafe; color: #2563eb; }
+        .api-method.put { background: #fef3c7; color: #d97706; }
+        .api-method.delete { background: #fee2e2; color: #dc2626; }
+
+        /* 모의 대시보드 */
+        .mock-dashboard {
+            padding: 20px;
+        }
+
+        .mock-stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .mock-stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.08);
+        }
+
+        .mock-stat-label {
+            font-size: 0.8rem;
+            color: #6b7280;
+            margin-bottom: 5px;
+        }
+
+        .mock-stat-value {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        /* 모의 사이드바 (관리자) */
+        .mock-admin-layout {
+            display: flex;
+            min-height: 400px;
+        }
+
+        .mock-admin-sidebar {
+            width: 200px;
+            background: #1e293b;
+            color: white;
+            padding: 20px;
+        }
+
+        .mock-admin-sidebar h4 {
+            font-size: 1rem;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .mock-admin-menu {
+            list-style: none;
+        }
+
+        .mock-admin-menu li {
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 5px;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+
+        .mock-admin-menu li:hover {
+            background: rgba(255,255,255,0.1);
+        }
+
+        .mock-admin-menu li.active {
+            background: #2563eb;
+        }
+
+        .mock-admin-content {
+            flex: 1;
+            padding: 20px;
+            background: #f9fafb;
+        }
+
+        /* 섹션 번호 */
+        .section-number {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 32px;
+            height: 32px;
+            background: #2563eb;
+            color: white;
+            border-radius: 50%;
+            font-size: 0.9rem;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 사이드바 네비게이션 -->
+    <nav class="sidebar">
+        <h1>
+            오랄케어샵
+            <span>사용 설명서 v1.0</span>
+        </h1>
+
+        <div class="nav-section">
+            <h3>시작하기</h3>
+            <ul>
+                <li><a href="#overview">프로젝트 개요</a></li>
+                <li><a href="#tech-stack">기술 스택</a></li>
+                <li><a href="#installation">설치 및 실행</a></li>
+                <li><a href="#accounts">테스트 계정</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <h3>사용자 기능</h3>
+            <ul>
+                <li><a href="#user-register">회원가입</a></li>
+                <li><a href="#user-login">로그인</a></li>
+                <li><a href="#product-browse">상품 탐색</a></li>
+                <li><a href="#product-detail">상품 상세</a></li>
+                <li><a href="#cart">장바구니</a></li>
+                <li><a href="#checkout">주문/결제</a></li>
+                <li><a href="#mypage">마이페이지</a></li>
+                <li><a href="#ddcare">든든케어 (할인)</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <h3>관리자 기능</h3>
+            <ul>
+                <li><a href="#admin-overview">관리자 개요</a></li>
+                <li><a href="#admin-dashboard">대시보드</a></li>
+                <li><a href="#admin-products">상품 관리</a></li>
+                <li><a href="#admin-orders">주문 관리</a></li>
+                <li><a href="#admin-users">회원 관리</a></li>
+                <li><a href="#admin-coupons">쿠폰 관리</a></li>
+                <li><a href="#admin-notices">공지사항 관리</a></li>
+                <li><a href="#admin-inquiries">문의 관리</a></li>
+                <li><a href="#admin-ddcare">든든케어 관리</a></li>
+            </ul>
+        </div>
+
+        <div class="nav-section">
+            <h3>API 레퍼런스</h3>
+            <ul>
+                <li><a href="#api-auth">인증 API</a></li>
+                <li><a href="#api-products">상품 API</a></li>
+                <li><a href="#api-orders">주문 API</a></li>
+                <li><a href="#api-admin">관리자 API</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- 메인 콘텐츠 -->
+    <main class="main-content">
+        <!-- 프로젝트 개요 -->
+        <section id="overview" class="section">
+            <h2><span class="section-number">1</span> 프로젝트 개요</h2>
+
+            <p>
+                <strong>오랄케어샵</strong>은 구강용품을 판매하는 풀스택 이커머스 웹 애플리케이션입니다.
+                React 기반의 프론트엔드와 Node.js/Express 기반의 백엔드로 구성되어 있으며,
+                토스페이먼츠를 통한 결제 시스템이 통합되어 있습니다.
+            </p>
+
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">🛒</div>
+                        상품 관리
+                    </h5>
+                    <p>상품 등록, 수정, 삭제 및 카테고리별 분류</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">💳</div>
+                        결제 시스템
+                    </h5>
+                    <p>토스페이먼츠 연동 안전 결제</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">👤</div>
+                        회원 관리
+                    </h5>
+                    <p>회원가입, 로그인, 포인트, 쿠폰</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">💙</div>
+                        든든케어
+                    </h5>
+                    <p>취약계층 30% 추가 할인 프로그램</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 기술 스택 -->
+        <section id="tech-stack" class="section">
+            <h2><span class="section-number">2</span> 기술 스택</h2>
+
+            <h3>백엔드 (Server)</h3>
+            <ul>
+                <li><strong>Node.js + Express.js</strong> - 서버 프레임워크</li>
+                <li><strong>SQLite (better-sqlite3)</strong> - 데이터베이스</li>
+                <li><strong>JWT</strong> - 인증 토큰</li>
+                <li><strong>bcrypt</strong> - 비밀번호 암호화</li>
+                <li><strong>multer</strong> - 파일 업로드</li>
+            </ul>
+
+            <h3>프론트엔드 (Client)</h3>
+            <ul>
+                <li><strong>React 18</strong> - UI 라이브러리</li>
+                <li><strong>Vite</strong> - 빌드 도구</li>
+                <li><strong>TailwindCSS</strong> - 스타일링</li>
+                <li><strong>React Router</strong> - 라우팅</li>
+                <li><strong>TanStack Query</strong> - 서버 상태 관리</li>
+                <li><strong>Zustand</strong> - 클라이언트 상태 관리</li>
+                <li><strong>React Hook Form</strong> - 폼 관리</li>
+            </ul>
+        </section>
+
+        <!-- 설치 및 실행 -->
+        <section id="installation" class="section">
+            <h2><span class="section-number">3</span> 설치 및 실행</h2>
+
+            <div class="info-box warning">
+                <h5>⚠️ 사전 요구사항</h5>
+                <p>Node.js 18 이상이 설치되어 있어야 합니다.</p>
+            </div>
+
+            <div class="step-guide">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>프로젝트 폴더로 이동</h5>
+                        <div class="code-block">
+                            <span class="command">cd</span> oral-care-shop
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>서버 설정 및 실행</h5>
+                        <p>서버 폴더로 이동하여 패키지를 설치하고 데이터베이스를 초기화합니다.</p>
+                        <div class="code-block">
+                            <span class="comment"># 서버 폴더로 이동</span><br>
+                            <span class="command">cd</span> server<br><br>
+                            <span class="comment"># 패키지 설치</span><br>
+                            <span class="command">npm install</span><br><br>
+                            <span class="comment"># 데이터베이스 초기화 (최초 1회)</span><br>
+                            <span class="command">npm run init-db</span><br><br>
+                            <span class="comment"># 개발 서버 시작 (포트 5000)</span><br>
+                            <span class="command">npm run dev</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>클라이언트 설정 및 실행</h5>
+                        <p>새 터미널을 열고 클라이언트를 실행합니다.</p>
+                        <div class="code-block">
+                            <span class="comment"># 클라이언트 폴더로 이동</span><br>
+                            <span class="command">cd</span> client<br><br>
+                            <span class="comment"># 패키지 설치</span><br>
+                            <span class="command">npm install</span><br><br>
+                            <span class="comment"># 개발 서버 시작 (포트 3000)</span><br>
+                            <span class="command">npm run dev</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h5>접속 확인</h5>
+                        <p>브라우저에서 아래 주소로 접속합니다.</p>
+                        <div class="code-block">
+                            <span class="comment"># 프론트엔드 (사용자 화면)</span><br>
+                            http://localhost:3000<br><br>
+                            <span class="comment"># 백엔드 API</span><br>
+                            http://localhost:5000/api
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box tip">
+                <h5>💡 팁</h5>
+                <p>서버와 클라이언트는 각각 별도의 터미널에서 실행해야 합니다. 두 서버가 모두 실행 중이어야 정상 작동합니다.</p>
+            </div>
+        </section>
+
+        <!-- 테스트 계정 -->
+        <section id="accounts" class="section">
+            <h2><span class="section-number">4</span> 테스트 계정</h2>
+
+            <h3>관리자 계정</h3>
+            <div class="info-box info">
+                <p>
+                    <strong>이메일:</strong> admin@oralcare.com<br>
+                    <strong>비밀번호:</strong> admin123!
+                </p>
+            </div>
+
+            <p>일반 사용자 계정은 회원가입을 통해 직접 생성할 수 있습니다.</p>
+        </section>
+
+        <!-- 회원가입 -->
+        <section id="user-register" class="section">
+            <h2><span class="section-number">5</span> 회원가입</h2>
+
+            <p>쇼핑몰의 모든 기능을 이용하려면 회원가입이 필요합니다.</p>
+
+            <div class="step-guide">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>회원가입 페이지 접속</h5>
+                        <p>상단 메뉴의 <strong>"회원가입"</strong> 버튼을 클릭하거나 <code>/register</code> 주소로 접속합니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>필수 정보 입력</h5>
+                        <p>아래 정보를 입력합니다:</p>
+                        <ul>
+                            <li><strong>이메일</strong> - 유효한 이메일 주소 (아이디로 사용)</li>
+                            <li><strong>비밀번호</strong> - 8자 이상, 영문+숫자+특수문자 포함</li>
+                            <li><strong>비밀번호 확인</strong> - 비밀번호 재입력</li>
+                            <li><strong>이름</strong> - 실명 입력</li>
+                            <li><strong>휴대폰</strong> - 010-0000-0000 형식</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>약관 동의</h5>
+                        <p>이용약관, 개인정보처리방침에 동의합니다. 마케팅 수신 동의는 선택사항입니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h5>가입 완료</h5>
+                        <p><strong>"가입하기"</strong> 버튼을 클릭하면 회원가입이 완료됩니다. 신규 가입 시 1,000 포인트가 지급됩니다!</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 모의 UI -->
+            <div class="mock-ui">
+                <div class="mock-browser-bar">
+                    <div class="mock-dot red"></div>
+                    <div class="mock-dot yellow"></div>
+                    <div class="mock-dot green"></div>
+                    <div class="mock-url">localhost:3000/register</div>
+                </div>
+                <div class="mock-screen" style="background: #f3f4f6;">
+                    <div class="mock-form">
+                        <h4>회원가입</h4>
+                        <input type="text" class="mock-input" placeholder="이메일" value="user@example.com" readonly>
+                        <input type="password" class="mock-input" placeholder="비밀번호" value="••••••••" readonly>
+                        <input type="password" class="mock-input" placeholder="비밀번호 확인" value="••••••••" readonly>
+                        <input type="text" class="mock-input" placeholder="이름" value="홍길동" readonly>
+                        <input type="text" class="mock-input" placeholder="휴대폰" value="010-1234-5678" readonly>
+                        <div style="margin-bottom: 15px; font-size: 0.85rem;">
+                            <label><input type="checkbox" checked> 이용약관 동의 (필수)</label><br>
+                            <label><input type="checkbox" checked> 개인정보처리방침 동의 (필수)</label><br>
+                            <label><input type="checkbox"> 마케팅 수신 동의 (선택)</label>
+                        </div>
+                        <button class="mock-btn">가입하기</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 로그인 -->
+        <section id="user-login" class="section">
+            <h2><span class="section-number">6</span> 로그인</h2>
+
+            <div class="step-guide">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>로그인 페이지 접속</h5>
+                        <p>상단 메뉴의 <strong>"로그인"</strong> 버튼을 클릭합니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>계정 정보 입력</h5>
+                        <p>가입한 이메일과 비밀번호를 입력합니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>로그인 완료</h5>
+                        <p>로그인 성공 시 메인 페이지로 이동합니다. 상단에 회원 이름이 표시됩니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mock-ui">
+                <div class="mock-browser-bar">
+                    <div class="mock-dot red"></div>
+                    <div class="mock-dot yellow"></div>
+                    <div class="mock-dot green"></div>
+                    <div class="mock-url">localhost:3000/login</div>
+                </div>
+                <div class="mock-screen" style="background: #f3f4f6;">
+                    <div class="mock-form">
+                        <h4>로그인</h4>
+                        <input type="text" class="mock-input" placeholder="이메일" value="admin@oralcare.com" readonly>
+                        <input type="password" class="mock-input" placeholder="비밀번호" value="••••••••" readonly>
+                        <label style="display: block; margin-bottom: 15px; font-size: 0.85rem;">
+                            <input type="checkbox"> 로그인 상태 유지
+                        </label>
+                        <button class="mock-btn">로그인</button>
+                        <p style="text-align: center; margin-top: 15px; font-size: 0.85rem;">
+                            계정이 없으신가요? <a href="#" style="color: #2563eb;">회원가입</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 상품 탐색 -->
+        <section id="product-browse" class="section">
+            <h2><span class="section-number">7</span> 상품 탐색</h2>
+
+            <h3>상품 검색</h3>
+            <p>상단 검색바에 원하는 상품명을 입력하고 엔터키를 누르거나 검색 아이콘을 클릭합니다.</p>
+
+            <h3>카테고리별 탐색</h3>
+            <p>상단 네비게이션 메뉴에서 원하는 카테고리를 클릭합니다.</p>
+            <ul>
+                <li>전체상품</li>
+                <li>칫솔</li>
+                <li>치약</li>
+                <li>치실/치간칫솔</li>
+                <li>구강청결제</li>
+                <li>전동칫솔</li>
+                <li>어린이용</li>
+            </ul>
+
+            <h3>정렬 및 필터</h3>
+            <p>상품 목록 페이지에서 다양한 옵션으로 정렬할 수 있습니다:</p>
+            <ul>
+                <li><strong>최신순</strong> - 최근 등록된 상품 순</li>
+                <li><strong>가격 낮은순</strong> - 저렴한 상품부터</li>
+                <li><strong>가격 높은순</strong> - 비싼 상품부터</li>
+                <li><strong>인기순</strong> - 판매량 많은 순</li>
+            </ul>
+
+            <div class="mock-ui">
+                <div class="mock-browser-bar">
+                    <div class="mock-dot red"></div>
+                    <div class="mock-dot yellow"></div>
+                    <div class="mock-dot green"></div>
+                    <div class="mock-url">localhost:3000/products</div>
+                </div>
+                <div class="mock-screen">
+                    <div class="mock-header">
+                        <span class="mock-logo">오랄케어샵</span>
+                        <div class="mock-nav">
+                            <span>전체상품</span>
+                            <span>칫솔</span>
+                            <span>치약</span>
+                            <span>치실</span>
+                        </div>
+                    </div>
+                    <div class="mock-card-grid">
+                        <div class="mock-product-card">
+                            <div class="mock-product-img">🪥</div>
+                            <div class="mock-product-name">프리미엄 칫솔 세트</div>
+                            <div class="mock-product-price">15,900원</div>
+                        </div>
+                        <div class="mock-product-card">
+                            <div class="mock-product-img">🦷</div>
+                            <div class="mock-product-name">미백 치약</div>
+                            <div class="mock-product-price">8,500원</div>
+                        </div>
+                        <div class="mock-product-card">
+                            <div class="mock-product-img">🧵</div>
+                            <div class="mock-product-name">치실 50m</div>
+                            <div class="mock-product-price">4,900원</div>
+                        </div>
+                        <div class="mock-product-card">
+                            <div class="mock-product-img">💧</div>
+                            <div class="mock-product-name">구강청결제</div>
+                            <div class="mock-product-price">12,000원</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 상품 상세 -->
+        <section id="product-detail" class="section">
+            <h2><span class="section-number">8</span> 상품 상세 페이지</h2>
+
+            <p>상품 카드를 클릭하면 상세 페이지로 이동합니다.</p>
+
+            <h3>상세 페이지 구성</h3>
+            <ul>
+                <li><strong>상품 이미지</strong> - 여러 장의 이미지 갤러리</li>
+                <li><strong>상품 정보</strong> - 이름, 가격, 할인율</li>
+                <li><strong>든든케어 할인가</strong> - 든든케어 회원 전용 30% 추가 할인</li>
+                <li><strong>옵션 선택</strong> - 사이즈, 색상 등 (있는 경우)</li>
+                <li><strong>수량 선택</strong> - +/- 버튼으로 조절</li>
+                <li><strong>구매 버튼</strong> - 장바구니 담기 / 바로 구매</li>
+                <li><strong>상품 설명</strong> - 상세 설명 탭</li>
+                <li><strong>리뷰</strong> - 구매자 리뷰 및 평점</li>
+            </ul>
+
+            <div class="info-box tip">
+                <h5>💡 위시리스트</h5>
+                <p>하트 아이콘을 클릭하면 위시리스트에 추가됩니다. 나중에 구매할 상품을 저장해두세요!</p>
+            </div>
+        </section>
+
+        <!-- 장바구니 -->
+        <section id="cart" class="section">
+            <h2><span class="section-number">9</span> 장바구니</h2>
+
+            <p>상품을 담아두고 한 번에 구매할 수 있는 장바구니 기능입니다.</p>
+
+            <h3>장바구니 담기</h3>
+            <div class="step-guide">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>상품 선택</h5>
+                        <p>상품 상세 페이지에서 옵션과 수량을 선택합니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>장바구니 담기</h5>
+                        <p><strong>"장바구니"</strong> 버튼을 클릭하면 장바구니에 추가됩니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>장바구니 확인</h5>
+                        <p>상단 장바구니 아이콘(🛒)을 클릭하여 담긴 상품을 확인합니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <h3>장바구니 관리</h3>
+            <ul>
+                <li><strong>수량 변경</strong> - +/- 버튼으로 수량 조절</li>
+                <li><strong>상품 삭제</strong> - 휴지통 아이콘 클릭</li>
+                <li><strong>전체 선택/해제</strong> - 일괄 선택 가능</li>
+                <li><strong>선택 삭제</strong> - 선택한 상품만 일괄 삭제</li>
+            </ul>
+
+            <h3>결제 금액 확인</h3>
+            <ul>
+                <li><strong>상품 금액</strong> - 선택한 상품의 총 금액</li>
+                <li><strong>할인 금액</strong> - 세일 할인액</li>
+                <li><strong>든든케어 할인</strong> - 든든케어 회원 30% 추가 할인</li>
+                <li><strong>배송비</strong> - 3만원 이상 무료, 미만 시 2,500원</li>
+            </ul>
+
+            <div class="mock-ui">
+                <div class="mock-browser-bar">
+                    <div class="mock-dot red"></div>
+                    <div class="mock-dot yellow"></div>
+                    <div class="mock-dot green"></div>
+                    <div class="mock-url">localhost:3000/cart</div>
+                </div>
+                <div class="mock-screen">
+                    <h4 style="padding: 20px 20px 0;">장바구니</h4>
+                    <div style="padding: 20px;">
+                        <table class="mock-table">
+                            <thead>
+                                <tr>
+                                    <th><input type="checkbox" checked></th>
+                                    <th>상품정보</th>
+                                    <th>수량</th>
+                                    <th>금액</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><input type="checkbox" checked></td>
+                                    <td>프리미엄 칫솔 세트</td>
+                                    <td>2</td>
+                                    <td><strong>31,800원</strong></td>
+                                    <td>🗑️</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" checked></td>
+                                    <td>미백 치약 100g</td>
+                                    <td>1</td>
+                                    <td><strong>8,500원</strong></td>
+                                    <td>🗑️</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div style="text-align: right; margin-top: 20px; padding: 20px; background: #f9fafb; border-radius: 8px;">
+                            <p>상품 금액: 40,300원</p>
+                            <p>배송비: <span style="color: #22c55e;">무료</span></p>
+                            <p style="font-size: 1.2rem; font-weight: bold; color: #2563eb;">총 결제 금액: 40,300원</p>
+                            <button class="mock-btn" style="width: auto; margin-top: 10px; padding: 12px 40px;">주문하기</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 주문/결제 -->
+        <section id="checkout" class="section">
+            <h2><span class="section-number">10</span> 주문 및 결제</h2>
+
+            <div class="flow-chart">
+                <div class="flow-step">장바구니</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step active">주문서 작성</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">결제</div>
+                <span class="flow-arrow">→</span>
+                <div class="flow-step">주문 완료</div>
+            </div>
+
+            <h3>주문서 작성</h3>
+            <div class="step-guide">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>배송 정보 입력</h5>
+                        <p>수령인 이름, 연락처, 배송 주소를 입력합니다. 기존 회원 정보를 불러올 수도 있습니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>쿠폰/포인트 적용</h5>
+                        <p>보유한 쿠폰을 선택하고, 사용할 포인트를 입력합니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>결제 수단 선택</h5>
+                        <p>토스페이먼츠를 통한 다양한 결제 수단을 선택합니다:</p>
+                        <ul>
+                            <li>카드 결제</li>
+                            <li>계좌 이체</li>
+                            <li>휴대폰 결제</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h5>결제하기</h5>
+                        <p><strong>"결제하기"</strong> 버튼을 클릭하면 토스페이먼츠 결제창이 열립니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">5</div>
+                    <div class="step-content">
+                        <h5>주문 완료</h5>
+                        <p>결제 완료 후 주문 완료 페이지로 이동합니다. 주문번호를 확인하세요!</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box info">
+                <h5>ℹ️ 배송 안내</h5>
+                <p>
+                    • 3만원 이상 구매 시 배송비 무료<br>
+                    • 3만원 미만 시 배송비 2,500원<br>
+                    • 결제 후 1~2일 이내 출고
+                </p>
+            </div>
+        </section>
+
+        <!-- 마이페이지 -->
+        <section id="mypage" class="section">
+            <h2><span class="section-number">11</span> 마이페이지</h2>
+
+            <p>로그인 후 상단의 사람 아이콘(👤)을 클릭하면 마이페이지로 이동합니다.</p>
+
+            <h3>마이페이지 메뉴</h3>
+            <div class="feature-list">
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">📦</div>
+                        주문 내역
+                    </h5>
+                    <p>주문 목록 확인, 배송 추적, 주문 취소</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">❤️</div>
+                        위시리스트
+                    </h5>
+                    <p>찜한 상품 목록 확인</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">⭐</div>
+                        내 리뷰
+                    </h5>
+                    <p>작성한 리뷰 관리, 리뷰 작성</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">💬</div>
+                        1:1 문의
+                    </h5>
+                    <p>문의 작성 및 답변 확인</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">👤</div>
+                        회원정보 수정
+                    </h5>
+                    <p>이름, 연락처, 비밀번호 변경</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">💰</div>
+                        포인트
+                    </h5>
+                    <p>포인트 잔액 및 적립/사용 내역</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">🎫</div>
+                        쿠폰
+                    </h5>
+                    <p>보유 쿠폰 확인, 쿠폰 등록</p>
+                </div>
+                <div class="feature-item">
+                    <h5>
+                        <div class="feature-icon">🛡️</div>
+                        든든케어
+                    </h5>
+                    <p>취약계층 할인 프로그램 신청</p>
+                </div>
+            </div>
+
+            <h3>주문 상태</h3>
+            <table class="mock-table">
+                <thead>
+                    <tr>
+                        <th>상태</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="mock-badge pending">결제대기</span></td>
+                        <td>결제 진행 중</td>
+                    </tr>
+                    <tr>
+                        <td><span class="mock-badge paid">결제완료</span></td>
+                        <td>결제 완료, 배송 준비 중</td>
+                    </tr>
+                    <tr>
+                        <td><span class="mock-badge shipped">배송중</span></td>
+                        <td>상품 발송됨, 운송장 번호 확인 가능</td>
+                    </tr>
+                    <tr>
+                        <td><span class="mock-badge completed">배송완료</span></td>
+                        <td>배송 완료, 구매확정/리뷰작성 가능</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 든든케어 -->
+        <section id="ddcare" class="section">
+            <h2><span class="section-number">12</span> 든든케어 (취약계층 할인)</h2>
+
+            <div class="info-box info">
+                <h5>🛡️ 든든케어란?</h5>
+                <p>취약계층을 위한 특별 할인 프로그램입니다. 승인된 회원은 모든 상품에서 <strong>30% 추가 할인</strong>을 받을 수 있습니다.</p>
+            </div>
+
+            <h3>대상 계층</h3>
+            <ul>
+                <li>기초생활수급자</li>
+                <li>차상위계층</li>
+                <li>한부모가정</li>
+                <li>장애인</li>
+                <li>국가유공자</li>
+                <li>다문화가정</li>
+            </ul>
+
+            <h3>신청 방법</h3>
+            <div class="step-guide">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h5>마이페이지 접속</h5>
+                        <p>로그인 후 마이페이지 > <strong>든든케어</strong> 메뉴로 이동합니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h5>신청서 작성</h5>
+                        <p>해당하는 대상 유형을 선택하고, 증빙 서류를 첨부합니다.</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h5>심사 대기</h5>
+                        <p>관리자가 증빙 서류를 확인합니다. (영업일 기준 1~3일 소요)</p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h5>승인 완료</h5>
+                        <p>승인되면 즉시 30% 할인이 적용됩니다. 유효기간은 승인일로부터 1년입니다.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="info-box tip">
+                <h5>💡 할인 적용 확인</h5>
+                <p>든든케어 승인 후 상품 상세 페이지와 장바구니에서 "든든케어 회원가"가 별도로 표시됩니다.</p>
+            </div>
+        </section>
+
+        <!-- 관리자 개요 -->
+        <section id="admin-overview" class="section">
+            <h2><span class="section-number">13</span> 관리자 기능 개요</h2>
+
+            <div class="info-box warning">
+                <h5>⚠️ 중요</h5>
+                <p>관리자 기능은 <strong>admin@oralcare.com</strong> 계정으로 로그인해야 접근할 수 있습니다. 현재 관리자 프론트엔드 페이지는 별도로 구현되어 있지 않으며, API를 통해 관리 기능을 사용합니다.</p>
+            </div>
+
+            <h3>관리자 기능 목록</h3>
+            <ul>
+                <li>대시보드 - 매출, 주문, 회원 통계</li>
+                <li>상품 관리 - 등록, 수정, 삭제, 이미지 관리</li>
+                <li>카테고리 관리 - 카테고리 생성, 수정</li>
+                <li>주문 관리 - 주문 상태 변경, 운송장 입력</li>
+                <li>회원 관리 - 회원 목록, 상태 관리</li>
+                <li>쿠폰 관리 - 쿠폰 생성, 수정</li>
+                <li>공지사항 관리 - 공지 작성, 수정, 삭제</li>
+                <li>문의 관리 - 고객 문의 답변</li>
+                <li>든든케어 관리 - 신청 승인/거절</li>
+            </ul>
+        </section>
+
+        <!-- 관리자 대시보드 -->
+        <section id="admin-dashboard" class="section">
+            <h2><span class="section-number">14</span> 관리자 대시보드</h2>
+
+            <p>대시보드 API를 통해 전체 현황을 파악할 수 있습니다.</p>
+
+            <h3>API 엔드포인트</h3>
+            <div class="code-block">
+                GET /api/admin/dashboard
+            </div>
+
+            <h3>확인 가능한 정보</h3>
+            <ul>
+                <li><strong>오늘 주문</strong> - 주문 건수, 매출액</li>
+                <li><strong>이번 달 주문</strong> - 월간 통계</li>
+                <li><strong>전체 회원 수</strong> - 가입 회원 수</li>
+                <li><strong>신규 회원</strong> - 오늘 가입한 회원</li>
+                <li><strong>재고 부족 상품</strong> - 재고 10개 이하</li>
+                <li><strong>미처리 주문</strong> - 배송 준비 필요한 주문</li>
+                <li><strong>미답변 문의</strong> - 답변 대기 중인 문의</li>
+                <li><strong>최근 주문 5건</strong> - 최신 주문 내역</li>
+                <li><strong>베스트 상품 5개</strong> - 판매량 상위 상품</li>
+            </ul>
+
+            <div class="mock-ui">
+                <div class="mock-browser-bar">
+                    <div class="mock-dot red"></div>
+                    <div class="mock-dot yellow"></div>
+                    <div class="mock-dot green"></div>
+                    <div class="mock-url">localhost:5000/api/admin/dashboard</div>
+                </div>
+                <div class="mock-screen" style="background: #f9fafb;">
+                    <div class="mock-admin-layout">
+                        <div class="mock-admin-sidebar">
+                            <h4>관리자</h4>
+                            <ul class="mock-admin-menu">
+                                <li class="active">📊 대시보드</li>
+                                <li>📦 상품 관리</li>
+                                <li>🛒 주문 관리</li>
+                                <li>👥 회원 관리</li>
+                                <li>🎫 쿠폰 관리</li>
+                                <li>📢 공지사항</li>
+                                <li>💬 문의 관리</li>
+                                <li>🛡️ 든든케어</li>
+                            </ul>
+                        </div>
+                        <div class="mock-admin-content">
+                            <h4 style="margin-bottom: 20px;">대시보드</h4>
+                            <div class="mock-stats-grid">
+                                <div class="mock-stat-card">
+                                    <div class="mock-stat-label">오늘 주문</div>
+                                    <div class="mock-stat-value">12건</div>
+                                </div>
+                                <div class="mock-stat-card">
+                                    <div class="mock-stat-label">오늘 매출</div>
+                                    <div class="mock-stat-value">458,000원</div>
+                                </div>
+                                <div class="mock-stat-card">
+                                    <div class="mock-stat-label">미처리 주문</div>
+                                    <div class="mock-stat-value" style="color: #f59e0b;">5건</div>
+                                </div>
+                                <div class="mock-stat-card">
+                                    <div class="mock-stat-label">미답변 문의</div>
+                                    <div class="mock-stat-value" style="color: #ef4444;">3건</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 상품 관리 -->
+        <section id="admin-products" class="section">
+            <h2><span class="section-number">15</span> 상품 관리</h2>
+
+            <h3>상품 목록 조회</h3>
+            <div class="code-block">
+                GET /api/admin/products?page=1&limit=20&category=1&search=칫솔&status=active
+            </div>
+
+            <h3>상품 등록</h3>
+            <div class="code-block">
+                POST /api/admin/products<br>
+                Content-Type: multipart/form-data<br><br>
+                {<br>
+                &nbsp;&nbsp;"name": "프리미엄 칫솔",<br>
+                &nbsp;&nbsp;"categoryId": 1,<br>
+                &nbsp;&nbsp;"description": "상품 상세 설명",<br>
+                &nbsp;&nbsp;"shortDescription": "짧은 설명",<br>
+                &nbsp;&nbsp;"price": 15900,<br>
+                &nbsp;&nbsp;"salePrice": 12900,<br>
+                &nbsp;&nbsp;"stock": 100,<br>
+                &nbsp;&nbsp;"sku": "TB-001",<br>
+                &nbsp;&nbsp;"isFeatured": true,<br>
+                &nbsp;&nbsp;"images": [파일들...]<br>
+                }
+            </div>
+
+            <h3>상품 수정</h3>
+            <div class="code-block">
+                PUT /api/admin/products/:id<br>
+                Content-Type: multipart/form-data
+            </div>
+
+            <h3>상품 삭제</h3>
+            <div class="code-block">
+                DELETE /api/admin/products/:id
+            </div>
+
+            <div class="info-box info">
+                <h5>ℹ️ 참고</h5>
+                <p>주문 내역이 있는 상품은 완전 삭제되지 않고 비활성화(숨김) 처리됩니다.</p>
+            </div>
+
+            <h3>상품 등록 시 필수 필드</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>필드</th>
+                        <th>타입</th>
+                        <th>필수</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>name</td>
+                        <td>string</td>
+                        <td>✅</td>
+                        <td>상품명</td>
+                    </tr>
+                    <tr>
+                        <td>categoryId</td>
+                        <td>number</td>
+                        <td>✅</td>
+                        <td>카테고리 ID</td>
+                    </tr>
+                    <tr>
+                        <td>price</td>
+                        <td>number</td>
+                        <td>✅</td>
+                        <td>정가 (원)</td>
+                    </tr>
+                    <tr>
+                        <td>salePrice</td>
+                        <td>number</td>
+                        <td></td>
+                        <td>할인가 (원)</td>
+                    </tr>
+                    <tr>
+                        <td>stock</td>
+                        <td>number</td>
+                        <td></td>
+                        <td>재고 수량</td>
+                    </tr>
+                    <tr>
+                        <td>images</td>
+                        <td>file[]</td>
+                        <td></td>
+                        <td>상품 이미지 (최대 10개)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 주문 관리 -->
+        <section id="admin-orders" class="section">
+            <h2><span class="section-number">16</span> 주문 관리</h2>
+
+            <h3>주문 목록 조회</h3>
+            <div class="code-block">
+                GET /api/admin/orders?page=1&status=paid&search=홍길동&startDate=2024-01-01&endDate=2024-12-31
+            </div>
+
+            <h3>주문 상태 변경</h3>
+            <div class="code-block">
+                PUT /api/admin/orders/:id/status<br>
+                Content-Type: application/json<br><br>
+                {<br>
+                &nbsp;&nbsp;"status": "shipped",<br>
+                &nbsp;&nbsp;"trackingNumber": "1234567890"<br>
+                }
+            </div>
+
+            <h3>주문 상태 종류</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>상태값</th>
+                        <th>의미</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>pending</td>
+                        <td>결제대기</td>
+                        <td>주문 생성됨, 결제 진행 중</td>
+                    </tr>
+                    <tr>
+                        <td>paid</td>
+                        <td>결제완료</td>
+                        <td>결제 완료, 배송 준비 필요</td>
+                    </tr>
+                    <tr>
+                        <td>preparing</td>
+                        <td>상품준비중</td>
+                        <td>배송을 위한 상품 준비 중</td>
+                    </tr>
+                    <tr>
+                        <td>shipped</td>
+                        <td>배송중</td>
+                        <td>상품 발송됨 (운송장 번호 필요)</td>
+                    </tr>
+                    <tr>
+                        <td>delivered</td>
+                        <td>배송완료</td>
+                        <td>고객에게 배송 완료</td>
+                    </tr>
+                    <tr>
+                        <td>completed</td>
+                        <td>구매확정</td>
+                        <td>고객이 구매 확정함</td>
+                    </tr>
+                    <tr>
+                        <td>cancelled</td>
+                        <td>주문취소</td>
+                        <td>주문이 취소됨</td>
+                    </tr>
+                    <tr>
+                        <td>refunded</td>
+                        <td>환불완료</td>
+                        <td>환불 처리 완료</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="info-box tip">
+                <h5>💡 운송장 번호 입력</h5>
+                <p>주문 상태를 "shipped"(배송중)으로 변경할 때 trackingNumber 필드에 운송장 번호를 함께 입력하세요.</p>
+            </div>
+        </section>
+
+        <!-- 회원 관리 -->
+        <section id="admin-users" class="section">
+            <h2><span class="section-number">17</span> 회원 관리</h2>
+
+            <h3>회원 목록 조회</h3>
+            <div class="code-block">
+                GET /api/admin/users?page=1&limit=20&search=홍길동&role=user
+            </div>
+
+            <h3>조회 가능한 회원 정보</h3>
+            <ul>
+                <li>회원 ID, 이메일, 이름, 연락처</li>
+                <li>회원 등급 (user/admin)</li>
+                <li>보유 포인트</li>
+                <li>활성화 상태</li>
+                <li>가입일, 최근 로그인</li>
+                <li>총 주문 수, 총 구매 금액</li>
+            </ul>
+        </section>
+
+        <!-- 쿠폰 관리 -->
+        <section id="admin-coupons" class="section">
+            <h2><span class="section-number">18</span> 쿠폰 관리</h2>
+
+            <h3>쿠폰 목록 조회</h3>
+            <div class="code-block">
+                GET /api/admin/coupons
+            </div>
+
+            <h3>쿠폰 생성</h3>
+            <div class="code-block">
+                POST /api/admin/coupons<br>
+                Content-Type: application/json<br><br>
+                {<br>
+                &nbsp;&nbsp;"code": "WELCOME10",<br>
+                &nbsp;&nbsp;"name": "신규회원 10% 할인",<br>
+                &nbsp;&nbsp;"description": "신규 가입 회원 전용 쿠폰",<br>
+                &nbsp;&nbsp;"discountType": "percentage",<br>
+                &nbsp;&nbsp;"discountValue": 10,<br>
+                &nbsp;&nbsp;"minOrderAmount": 10000,<br>
+                &nbsp;&nbsp;"maxDiscountAmount": 5000,<br>
+                &nbsp;&nbsp;"startDate": "2024-01-01",<br>
+                &nbsp;&nbsp;"endDate": "2024-12-31",<br>
+                &nbsp;&nbsp;"usageLimit": 100<br>
+                }
+            </div>
+
+            <h3>쿠폰 필드 설명</h3>
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>필드</th>
+                        <th>타입</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>code</td>
+                        <td>string</td>
+                        <td>쿠폰 코드 (대문자로 저장됨)</td>
+                    </tr>
+                    <tr>
+                        <td>discountType</td>
+                        <td>string</td>
+                        <td>"percentage" (%) 또는 "fixed" (원)</td>
+                    </tr>
+                    <tr>
+                        <td>discountValue</td>
+                        <td>number</td>
+                        <td>할인 값 (10 = 10% 또는 10원)</td>
+                    </tr>
+                    <tr>
+                        <td>minOrderAmount</td>
+                        <td>number</td>
+                        <td>최소 주문 금액</td>
+                    </tr>
+                    <tr>
+                        <td>maxDiscountAmount</td>
+                        <td>number</td>
+                        <td>최대 할인 금액 (% 쿠폰용)</td>
+                    </tr>
+                    <tr>
+                        <td>usageLimit</td>
+                        <td>number</td>
+                        <td>총 사용 가능 횟수</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 공지사항 관리 -->
+        <section id="admin-notices" class="section">
+            <h2><span class="section-number">19</span> 공지사항 관리</h2>
+
+            <h3>공지사항 등록</h3>
+            <div class="code-block">
+                POST /api/admin/notices<br>
+                Content-Type: application/json<br><br>
+                {<br>
+                &nbsp;&nbsp;"title": "서비스 점검 안내",<br>
+                &nbsp;&nbsp;"content": "공지 내용...",<br>
+                &nbsp;&nbsp;"isImportant": true<br>
+                }
+            </div>
+
+            <h3>공지사항 수정</h3>
+            <div class="code-block">
+                PUT /api/admin/notices/:id<br>
+                Content-Type: application/json<br><br>
+                {<br>
+                &nbsp;&nbsp;"title": "수정된 제목",<br>
+                &nbsp;&nbsp;"content": "수정된 내용",<br>
+                &nbsp;&nbsp;"isImportant": false,<br>
+                &nbsp;&nbsp;"isActive": true<br>
+                }
+            </div>
+
+            <h3>공지사항 삭제</h3>
+            <div class="code-block">
+                DELETE /api/admin/notices/:id
+            </div>
+        </section>
+
+        <!-- 문의 관리 -->
+        <section id="admin-inquiries" class="section">
+            <h2><span class="section-number">20</span> 문의 관리</h2>
+
+            <h3>문의 목록 조회</h3>
+            <div class="code-block">
+                GET /api/admin/inquiries?page=1&status=pending
+            </div>
+
+            <h3>문의 답변</h3>
+            <div class="code-block">
+                POST /api/admin/inquiries/:id/reply<br>
+                Content-Type: application/json<br><br>
+                {<br>
+                &nbsp;&nbsp;"reply": "답변 내용입니다..."<br>
+                }
+            </div>
+
+            <p>답변을 등록하면 문의 상태가 자동으로 "answered"로 변경됩니다.</p>
+        </section>
+
+        <!-- 든든케어 관리 -->
+        <section id="admin-ddcare" class="section">
+            <h2><span class="section-number">21</span> 든든케어 관리</h2>
+
+            <h3>신청 목록 조회</h3>
+            <div class="code-block">
+                GET /api/admin/ddcare?page=1&status=pending
+            </div>
+
+            <h3>신청 상세 조회</h3>
+            <div class="code-block">
+                GET /api/admin/ddcare/:id
+            </div>
+
+            <h3>신청 승인</h3>
+            <div class="code-block">
+                PUT /api/admin/ddcare/:id/approve<br>
+                Content-Type: application/json<br><br>
+                {<br>
+                &nbsp;&nbsp;"adminMemo": "서류 확인 완료"<br>
+                }
+            </div>
+
+            <h3>신청 거절</h3>
+            <div class="code-block">
+                PUT /api/admin/ddcare/:id/reject<br>
+                Content-Type: application/json<br><br>
+                {<br>
+                &nbsp;&nbsp;"adminMemo": "서류 불충분 - 재제출 필요"<br>
+                }
+            </div>
+
+            <h3>든든케어 통계</h3>
+            <div class="code-block">
+                GET /api/admin/ddcare-stats
+            </div>
+
+            <p>대기 중 신청 수, 승인된 회원 수, 유형별 현황을 확인할 수 있습니다.</p>
+        </section>
+
+        <!-- API 레퍼런스: 인증 -->
+        <section id="api-auth" class="section">
+            <h2><span class="section-number">22</span> API 레퍼런스 - 인증</h2>
+
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>메소드</th>
+                        <th>엔드포인트</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/auth/register</td>
+                        <td>회원가입</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/auth/login</td>
+                        <td>로그인</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/auth/me</td>
+                        <td>내 정보 조회</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method put">PUT</span></td>
+                        <td>/api/auth/change-password</td>
+                        <td>비밀번호 변경</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- API 레퍼런스: 상품 -->
+        <section id="api-products" class="section">
+            <h2><span class="section-number">23</span> API 레퍼런스 - 상품</h2>
+
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>메소드</th>
+                        <th>엔드포인트</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/products</td>
+                        <td>상품 목록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/products/:slug</td>
+                        <td>상품 상세</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/products/:id/reviews</td>
+                        <td>상품 리뷰</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/categories</td>
+                        <td>카테고리 목록</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- API 레퍼런스: 주문 -->
+        <section id="api-orders" class="section">
+            <h2><span class="section-number">24</span> API 레퍼런스 - 주문</h2>
+
+            <table class="api-table">
+                <thead>
+                    <tr>
+                        <th>메소드</th>
+                        <th>엔드포인트</th>
+                        <th>설명</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/cart</td>
+                        <td>장바구니 조회</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/cart</td>
+                        <td>장바구니 추가</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method put">PUT</span></td>
+                        <td>/api/cart/:id</td>
+                        <td>수량 변경</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method delete">DELETE</span></td>
+                        <td>/api/cart/:id</td>
+                        <td>장바구니 삭제</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/orders</td>
+                        <td>주문 목록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/orders/:orderNumber</td>
+                        <td>주문 상세</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/orders</td>
+                        <td>주문 생성</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/orders/:orderNumber/cancel</td>
+                        <td>주문 취소</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/orders/:orderNumber/confirm</td>
+                        <td>구매 확정</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/payments/confirm</td>
+                        <td>결제 승인</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/payments/cancel</td>
+                        <td>결제 취소</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- API 레퍼런스: 관리자 -->
+        <section id="api-admin" class="section">
+            <h2><span class="section-number">25</span> API 레퍼런스 - 관리자</h2>
+
+            <div class="info-box warning">
+                <h5>⚠️ 인증 필요</h5>
+                <p>모든 관리자 API는 Authorization 헤더에 JWT 토큰이 필요하며, 관리자 권한을 가진 계정만 접근 가능합니다.</p>
+            </div>
+
+            <div class="code-block">
+                Authorization: Bearer {JWT_TOKEN}
+            </div>
+
+            <h3>대시보드</h3>
+            <table class="api-table">
+                <tbody>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/admin/dashboard</td>
+                        <td>대시보드 통계</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>상품 관리</h3>
+            <table class="api-table">
+                <tbody>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/admin/products</td>
+                        <td>상품 목록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/admin/products</td>
+                        <td>상품 등록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method put">PUT</span></td>
+                        <td>/api/admin/products/:id</td>
+                        <td>상품 수정</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method delete">DELETE</span></td>
+                        <td>/api/admin/products/:id</td>
+                        <td>상품 삭제</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>주문 관리</h3>
+            <table class="api-table">
+                <tbody>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/admin/orders</td>
+                        <td>주문 목록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method put">PUT</span></td>
+                        <td>/api/admin/orders/:id/status</td>
+                        <td>주문 상태 변경</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>회원 관리</h3>
+            <table class="api-table">
+                <tbody>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/admin/users</td>
+                        <td>회원 목록</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>문의 관리</h3>
+            <table class="api-table">
+                <tbody>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/admin/inquiries</td>
+                        <td>문의 목록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/admin/inquiries/:id/reply</td>
+                        <td>문의 답변</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>카테고리 관리</h3>
+            <table class="api-table">
+                <tbody>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/admin/categories</td>
+                        <td>카테고리 등록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method put">PUT</span></td>
+                        <td>/api/admin/categories/:id</td>
+                        <td>카테고리 수정</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>쿠폰 관리</h3>
+            <table class="api-table">
+                <tbody>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/admin/coupons</td>
+                        <td>쿠폰 목록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/admin/coupons</td>
+                        <td>쿠폰 생성</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>공지사항 관리</h3>
+            <table class="api-table">
+                <tbody>
+                    <tr>
+                        <td><span class="api-method post">POST</span></td>
+                        <td>/api/admin/notices</td>
+                        <td>공지 등록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method put">PUT</span></td>
+                        <td>/api/admin/notices/:id</td>
+                        <td>공지 수정</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method delete">DELETE</span></td>
+                        <td>/api/admin/notices/:id</td>
+                        <td>공지 삭제</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>든든케어 관리</h3>
+            <table class="api-table">
+                <tbody>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/admin/ddcare</td>
+                        <td>신청 목록</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/admin/ddcare/:id</td>
+                        <td>신청 상세</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method put">PUT</span></td>
+                        <td>/api/admin/ddcare/:id/approve</td>
+                        <td>신청 승인</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method put">PUT</span></td>
+                        <td>/api/admin/ddcare/:id/reject</td>
+                        <td>신청 거절</td>
+                    </tr>
+                    <tr>
+                        <td><span class="api-method get">GET</span></td>
+                        <td>/api/admin/ddcare-stats</td>
+                        <td>든든케어 통계</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- 마무리 -->
+        <section class="section" style="text-align: center; background: linear-gradient(135deg, #eff6ff, #dbeafe);">
+            <h2 style="border: none; justify-content: center;">도움이 필요하신가요?</h2>
+            <p style="font-size: 1.1rem; margin-bottom: 20px;">
+                추가 문의사항이 있으시면 1:1 문의 또는 고객센터를 이용해주세요.
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center;">
+                <div style="padding: 20px; background: white; border-radius: 10px;">
+                    <strong>고객센터</strong><br>
+                    1234-5678
+                </div>
+                <div style="padding: 20px; background: white; border-radius: 10px;">
+                    <strong>운영시간</strong><br>
+                    평일 09:00 ~ 18:00
+                </div>
+                <div style="padding: 20px; background: white; border-radius: 10px;">
+                    <strong>이메일</strong><br>
+                    support@oralcare.com
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        // 부드러운 스크롤
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // 현재 섹션 하이라이트
+        const sections = document.querySelectorAll('section[id]');
+        const navLinks = document.querySelectorAll('.sidebar a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                if (scrollY >= sectionTop - 100) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.style.background = '';
+                if (link.getAttribute('href') === `#${current}`) {
+                    link.style.background = 'rgba(255,255,255,0.1)';
+                }
+            });
+        });
+    </script>
+</body>
+</html>

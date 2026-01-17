@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 가이드 - 오랄케어 쇼핑몰</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Malgun Gothic', -apple-system, sans-serif; background: #f5f5f5; color: #333; line-height: 1.8; }
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+    header { background: linear-gradient(135deg, #DC2626 0%, #EF4444 100%); color: white; padding: 40px 20px; }
+    header a { color: white; text-decoration: none; opacity: 0.8; }
+    header a:hover { opacity: 1; }
+    header h1 { font-size: 2rem; margin-top: 10px; }
+    .nav { background: white; padding: 15px 20px; border-bottom: 1px solid #E5E7EB; position: sticky; top: 0; z-index: 100; }
+    .nav ul { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+    .nav a { color: #4B5563; text-decoration: none; font-weight: 500; }
+    .nav a:hover { color: #DC2626; }
+    .content { background: white; margin: 20px 0; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .section { padding: 40px; border-bottom: 1px solid #E5E7EB; }
+    .section:last-child { border-bottom: none; }
+    .section h2 { color: #DC2626; font-size: 1.5rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #FEE2E2; }
+    .section h3 { color: #1F2937; font-size: 1.2rem; margin: 25px 0 15px 0; }
+    .step { display: flex; gap: 20px; margin: 20px 0; padding: 20px; background: #F9FAFB; border-radius: 8px; }
+    .step-num { width: 40px; height: 40px; background: #DC2626; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+    .step-content { flex: 1; }
+    .step-content strong { display: block; margin-bottom: 5px; color: #1F2937; }
+    .screenshot { background: #E5E7EB; border-radius: 8px; padding: 20px; margin: 15px 0; text-align: center; border: 2px dashed #9CA3AF; }
+    .screenshot-mock { background: white; border-radius: 8px; padding: 20px; margin-top: 10px; text-align: left; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .tip { background: #FEE2E2; border-left: 4px solid #DC2626; padding: 15px 20px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+    .tip strong { color: #B91C1C; }
+    .warning { background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 15px 20px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+    .warning strong { color: #B45309; }
+    .btn-mock { display: inline-block; padding: 10px 20px; background: #DC2626; color: white; border-radius: 6px; font-size: 0.9rem; }
+    .btn-secondary { background: #6B7280; }
+    .btn-success { background: #059669; }
+    .input-mock { border: 1px solid #D1D5DB; padding: 10px; border-radius: 6px; width: 100%; margin: 5px 0; background: white; }
+    .form-mock { background: #F9FAFB; padding: 20px; border-radius: 8px; margin: 15px 0; }
+    .form-mock label { display: block; margin-bottom: 5px; font-weight: 500; color: #374151; }
+    .form-mock .field { margin-bottom: 15px; }
+    table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #E5E7EB; }
+    th { background: #F3F4F6; font-weight: 600; }
+    .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
+    .status-pending { background: #FEF3C7; color: #B45309; }
+    .status-approved { background: #D1FAE5; color: #065F46; }
+    .status-rejected { background: #FEE2E2; color: #B91C1C; }
+    footer { text-align: center; padding: 30px; color: #6B7280; }
+    .admin-layout { display: grid; grid-template-columns: 220px 1fr; gap: 0; border: 1px solid #E5E7EB; border-radius: 8px; overflow: hidden; }
+    .admin-sidebar { background: #1F2937; color: white; }
+    .admin-sidebar .logo { padding: 20px; border-bottom: 1px solid #374151; display: flex; align-items: center; gap: 10px; background: #DC2626; }
+    .admin-sidebar .menu { padding: 15px 10px; }
+    .admin-sidebar .menu-item { padding: 12px 15px; margin: 3px 0; border-radius: 8px; cursor: pointer; display: flex; align-items: center; gap: 10px; }
+    .admin-sidebar .menu-item:hover { background: #374151; }
+    .admin-sidebar .menu-item.active { background: #DC2626; }
+    .admin-content { background: #F3F4F6; padding: 20px; }
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 15px; margin: 20px 0; }
+    .stat-card { background: white; padding: 20px; border-radius: 8px; }
+    .stat-card .value { font-size: 1.8rem; font-weight: bold; color: #DC2626; }
+    .stat-card .label { color: #6B7280; margin-top: 5px; font-size: 0.9rem; }
+    .stat-card.green .value { color: #059669; }
+    .stat-card.blue .value { color: #2563EB; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="index.html">← 메인으로 돌아가기</a>
+      <h1>⚙️ 관리자 가이드</h1>
+      <p>쇼핑몰 전체를 관리하는 방법을 안내합니다.</p>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="container">
+      <ul>
+        <li><a href="#login">관리자 로그인</a></li>
+        <li><a href="#dashboard">대시보드</a></li>
+        <li><a href="#users">회원 관리</a></li>
+        <li><a href="#products">상품 관리</a></li>
+        <li><a href="#orders">주문 관리</a></li>
+        <li><a href="#settlements">정산 관리</a></li>
+        <li><a href="#categories">카테고리 관리</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="content">
+
+      <!-- 관리자 로그인 -->
+      <section class="section" id="login">
+        <h2>1. 관리자 로그인</h2>
+        <p>관리자 계정으로 로그인하여 쇼핑몰을 관리합니다.</p>
+
+        <h3>1-1. 접속 방법</h3>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>쇼핑몰 메인 페이지 접속</strong>
+            <code>http://localhost:5173</code>으로 접속합니다.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>관리자 계정으로 로그인</strong>
+            관리자 이메일과 비밀번호를 입력합니다.
+          </div>
+        </div>
+
+        <div class="form-mock" style="max-width: 400px;">
+          <div class="field">
+            <label>이메일</label>
+            <div class="input-mock">admin@example.com</div>
+          </div>
+          <div class="field">
+            <label>비밀번호</label>
+            <div class="input-mock">••••••••</div>
+          </div>
+          <button class="btn-mock" style="width: 100%;">로그인</button>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>관리자 메뉴 접근</strong>
+            로그인 후 상단 메뉴에 "관리자" 메뉴가 표시됩니다. 클릭하면 관리자 페이지로 이동합니다.
+          </div>
+        </div>
+
+        <div class="tip">
+          <strong>🔐 보안 안내:</strong> 관리자 계정은 강력한 비밀번호를 사용하고, 주기적으로 변경해주세요.
+        </div>
+      </section>
+
+      <!-- 대시보드 -->
+      <section class="section" id="dashboard">
+        <h2>2. 관리자 대시보드</h2>
+        <p>쇼핑몰 전체 현황을 한눈에 파악할 수 있습니다.</p>
+
+        <div class="screenshot">
+          <p>📸 화면 예시: 관리자 대시보드</p>
+          <div class="screenshot-mock" style="padding: 0;">
+            <div class="admin-layout">
+              <div class="admin-sidebar">
+                <div class="logo">
+                  <span style="font-size: 1.2rem;">⚙️</span>
+                  <strong>관리자</strong>
+                </div>
+                <div class="menu">
+                  <div class="menu-item active">📊 대시보드</div>
+                  <div class="menu-item">👥 회원 관리</div>
+                  <div class="menu-item">📦 상품 관리</div>
+                  <div class="menu-item">🛒 주문 관리</div>
+                  <div class="menu-item">💰 정산 관리</div>
+                  <div class="menu-item">📁 카테고리</div>
+                </div>
+              </div>
+              <div class="admin-content">
+                <h4 style="margin-bottom: 20px;">대시보드</h4>
+                <div class="card-grid">
+                  <div class="stat-card">
+                    <div class="label">전체 회원</div>
+                    <div class="value">1,234</div>
+                  </div>
+                  <div class="stat-card blue">
+                    <div class="label">판매자</div>
+                    <div class="value">56</div>
+                  </div>
+                  <div class="stat-card green">
+                    <div class="label">이번 달 매출</div>
+                    <div class="value">12.5M</div>
+                  </div>
+                  <div class="stat-card">
+                    <div class="label">총 주문</div>
+                    <div class="value">3,456</div>
+                  </div>
+                </div>
+                <div class="card-grid" style="grid-template-columns: repeat(3, 1fr);">
+                  <div class="stat-card" style="border-left: 4px solid #F59E0B;">
+                    <div class="label">승인 대기 상품</div>
+                    <div class="value" style="color: #F59E0B;">12</div>
+                  </div>
+                  <div class="stat-card" style="border-left: 4px solid #DC2626;">
+                    <div class="label">승인 대기 판매자</div>
+                    <div class="value">3</div>
+                  </div>
+                  <div class="stat-card" style="border-left: 4px solid #4F46E5;">
+                    <div class="label">정산 대기</div>
+                    <div class="value" style="color: #4F46E5;">8</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>2-1. 대시보드 항목 설명</h3>
+        <table>
+          <tr>
+            <th>항목</th>
+            <th>설명</th>
+          </tr>
+          <tr>
+            <td>전체 회원</td>
+            <td>가입된 모든 회원 수 (구매자 + 판매자)</td>
+          </tr>
+          <tr>
+            <td>판매자</td>
+            <td>승인된 판매자 수</td>
+          </tr>
+          <tr>
+            <td>이번 달 매출</td>
+            <td>당월 총 결제 금액</td>
+          </tr>
+          <tr>
+            <td>승인 대기 상품</td>
+            <td>판매자가 등록하고 아직 승인하지 않은 상품 수</td>
+          </tr>
+          <tr>
+            <td>승인 대기 판매자</td>
+            <td>가입 후 아직 승인하지 않은 판매자 수</td>
+          </tr>
+          <tr>
+            <td>정산 대기</td>
+            <td>아직 지급 처리하지 않은 정산 건수</td>
+          </tr>
+        </table>
+      </section>
+
+      <!-- 회원 관리 -->
+      <section class="section" id="users">
+        <h2>3. 회원 관리</h2>
+        <p>모든 회원을 조회하고 관리할 수 있습니다.</p>
+
+        <h3>3-1. 회원 목록 조회</h3>
+        <div class="screenshot">
+          <p>📸 화면 예시: 회원 관리</p>
+          <div class="screenshot-mock">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+              <h4>회원 관리</h4>
+              <div style="display: flex; gap: 10px;">
+                <select class="input-mock" style="width: auto;">
+                  <option>전체</option>
+                  <option>구매자</option>
+                  <option>판매자</option>
+                  <option>관리자</option>
+                </select>
+                <input type="text" class="input-mock" style="width: 200px;" placeholder="이름, 이메일 검색">
+                <button class="btn-mock">검색</button>
+              </div>
+            </div>
+            <table>
+              <tr>
+                <th>ID</th>
+                <th>이름</th>
+                <th>이메일</th>
+                <th>유형</th>
+                <th>가입일</th>
+                <th>상태</th>
+                <th>관리</th>
+              </tr>
+              <tr>
+                <td>1</td>
+                <td>홍길동</td>
+                <td>hong@example.com</td>
+                <td>구매자</td>
+                <td>2024-12-01</td>
+                <td><span class="status-badge status-approved">활성</span></td>
+                <td><button class="btn-mock btn-secondary" style="padding: 3px 10px; font-size: 0.8rem;">상세</button></td>
+              </tr>
+              <tr>
+                <td>2</td>
+                <td>김판매</td>
+                <td>seller@example.com</td>
+                <td><span style="color: #059669; font-weight: bold;">판매자</span></td>
+                <td>2024-12-05</td>
+                <td><span class="status-badge status-pending">승인대기</span></td>
+                <td>
+                  <button class="btn-mock btn-success" style="padding: 3px 10px; font-size: 0.8rem;">승인</button>
+                  <button class="btn-mock" style="padding: 3px 10px; font-size: 0.8rem;">거절</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <h3>3-2. 판매자 승인</h3>
+        <p>판매자로 가입한 회원은 관리자 승인 후 판매 활동이 가능합니다.</p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>회원 유형을 "판매자"로 필터링</strong>
+            승인 대기 중인 판매자만 확인할 수 있습니다.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>사업자 정보 확인</strong>
+            상호명, 사업자등록번호를 확인합니다.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>"승인" 또는 "거절" 클릭</strong>
+            적합한 판매자는 승인, 부적합하면 거절합니다.
+          </div>
+        </div>
+
+        <div class="warning">
+          <strong>⚠️ 확인 사항:</strong> 사업자등록번호가 실제로 존재하는지 국세청 홈택스에서 확인하세요.
+        </div>
+      </section>
+
+      <!-- 상품 관리 -->
+      <section class="section" id="products">
+        <h2>4. 상품 관리</h2>
+        <p>판매자가 등록한 상품을 검토하고 승인합니다.</p>
+
+        <h3>4-1. 상품 승인 대기 목록</h3>
+        <div class="screenshot">
+          <p>📸 화면 예시: 상품 관리</p>
+          <div class="screenshot-mock">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+              <h4>상품 관리</h4>
+              <div>
+                <button class="btn-mock" style="background: #F59E0B;">승인대기 (12)</button>
+                <button class="btn-mock btn-secondary">전체</button>
+              </div>
+            </div>
+            <table>
+              <tr>
+                <th>이미지</th>
+                <th>상품명</th>
+                <th>판매자</th>
+                <th>카테고리</th>
+                <th>가격</th>
+                <th>등록일</th>
+                <th>상태</th>
+                <th>관리</th>
+              </tr>
+              <tr>
+                <td><div style="width:50px;height:50px;background:#F3F4F6;border-radius:4px;display:flex;align-items:center;justify-content:center;">📦</div></td>
+                <td>프리미엄 칫솔 세트</td>
+                <td>행복구강</td>
+                <td>칫솔</td>
+                <td>15,000원</td>
+                <td>2024-12-14</td>
+                <td><span class="status-badge status-pending">승인대기</span></td>
+                <td>
+                  <button class="btn-mock btn-success" style="padding: 3px 10px; font-size: 0.8rem;">승인</button>
+                  <button class="btn-mock" style="padding: 3px 10px; font-size: 0.8rem;">반려</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <h3>4-2. 상품 승인 기준</h3>
+        <table>
+          <tr>
+            <th>확인 항목</th>
+            <th>기준</th>
+          </tr>
+          <tr>
+            <td>상품 이미지</td>
+            <td>실제 상품 사진인지, 타사 이미지 무단 사용 여부</td>
+          </tr>
+          <tr>
+            <td>상품명</td>
+            <td>명확하고 적절한 이름인지</td>
+          </tr>
+          <tr>
+            <td>상품 설명</td>
+            <td>허위/과대 광고가 없는지</td>
+          </tr>
+          <tr>
+            <td>가격</td>
+            <td>시장가 대비 적정한지</td>
+          </tr>
+          <tr>
+            <td>카테고리</td>
+            <td>올바른 카테고리에 등록되었는지</td>
+          </tr>
+        </table>
+
+        <h3>4-3. 상품 반려 시</h3>
+        <p>상품을 반려할 때는 반드시 사유를 입력합니다. 판매자가 수정 후 재등록할 수 있도록 구체적인 사유를 작성해주세요.</p>
+
+        <div class="form-mock" style="max-width: 500px;">
+          <h4 style="margin-bottom: 15px;">상품 반려</h4>
+          <div class="field">
+            <label>반려 사유</label>
+            <textarea class="input-mock" rows="3">상품 이미지가 불명확합니다. 실제 상품 사진으로 교체 후 재등록해주세요.</textarea>
+          </div>
+          <button class="btn-mock">반려 처리</button>
+        </div>
+      </section>
+
+      <!-- 주문 관리 -->
+      <section class="section" id="orders">
+        <h2>5. 주문 관리</h2>
+        <p>전체 주문 현황을 조회하고 관리합니다.</p>
+
+        <h3>5-1. 주문 목록</h3>
+        <div class="screenshot">
+          <p>📸 화면 예시: 주문 관리</p>
+          <div class="screenshot-mock">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+              <h4>주문 관리</h4>
+              <div style="display: flex; gap: 10px;">
+                <select class="input-mock" style="width: auto;">
+                  <option>전체</option>
+                  <option>결제완료</option>
+                  <option>배송중</option>
+                  <option>배송완료</option>
+                  <option>취소</option>
+                </select>
+                <input type="date" class="input-mock" style="width: auto;">
+                <span>~</span>
+                <input type="date" class="input-mock" style="width: auto;">
+              </div>
+            </div>
+            <table>
+              <tr>
+                <th>주문번호</th>
+                <th>주문일시</th>
+                <th>구매자</th>
+                <th>판매자</th>
+                <th>결제금액</th>
+                <th>상태</th>
+                <th>관리</th>
+              </tr>
+              <tr>
+                <td>ORD-20241215-001234</td>
+                <td>2024-12-15 14:30</td>
+                <td>홍길동</td>
+                <td>행복구강</td>
+                <td>30,000원</td>
+                <td><span class="status-badge" style="background:#DBEAFE;color:#1E40AF;">배송중</span></td>
+                <td><button class="btn-mock btn-secondary" style="padding: 3px 10px; font-size: 0.8rem;">상세</button></td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <h3>5-2. 주문 상세 확인</h3>
+        <p>주문 상세에서 다음 정보를 확인할 수 있습니다:</p>
+        <ul style="margin-left: 20px;">
+          <li>주문자 정보 (이름, 연락처, 배송지)</li>
+          <li>주문 상품 목록</li>
+          <li>결제 정보</li>
+          <li>배송 상태 및 운송장 번호</li>
+        </ul>
+
+        <h3>5-3. 주문 취소 처리</h3>
+        <p>구매자 요청 시 주문을 취소하고 환불 처리할 수 있습니다.</p>
+        <div class="warning">
+          <strong>⚠️ 주의:</strong> 이미 배송 중인 주문은 취소가 불가합니다. 반품 절차를 안내하세요.
+        </div>
+      </section>
+
+      <!-- 정산 관리 -->
+      <section class="section" id="settlements">
+        <h2>6. 정산 관리</h2>
+        <p>판매자에게 지급할 정산을 생성하고 처리합니다.</p>
+
+        <h3>6-1. 정산 주기</h3>
+        <table>
+          <tr>
+            <th>항목</th>
+            <th>내용</th>
+          </tr>
+          <tr>
+            <td>정산 주기</td>
+            <td>월 1회</td>
+          </tr>
+          <tr>
+            <td>정산 마감</td>
+            <td>매월 말일</td>
+          </tr>
+          <tr>
+            <td>정산 지급일</td>
+            <td>익월 15일</td>
+          </tr>
+          <tr>
+            <td>수수료</td>
+            <td>10%</td>
+          </tr>
+        </table>
+
+        <h3>6-2. 정산 생성</h3>
+        <p>매월 말일에 해당 월의 정산을 생성합니다.</p>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>정산 관리 → "정산 생성" 버튼 클릭</strong>
+            정산 대상 월을 선택합니다.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>정산 내역 확인</strong>
+            판매자별 매출, 수수료, 환불, 정산금액을 확인합니다.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>정산 생성 완료</strong>
+            확인 후 정산을 생성하면 판매자에게 알림이 발송됩니다.
+          </div>
+        </div>
+
+        <h3>6-3. 정산 지급 처리</h3>
+        <div class="screenshot">
+          <p>📸 화면 예시: 정산 목록</p>
+          <div class="screenshot-mock">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 15px;">
+              <h4>정산 관리</h4>
+              <button class="btn-mock">+ 정산 생성</button>
+            </div>
+            <table>
+              <tr>
+                <th>정산번호</th>
+                <th>정산월</th>
+                <th>판매자</th>
+                <th>매출</th>
+                <th>수수료</th>
+                <th>정산금액</th>
+                <th>상태</th>
+                <th>관리</th>
+              </tr>
+              <tr>
+                <td>STL-202412-001</td>
+                <td>2024년 12월</td>
+                <td>행복구강</td>
+                <td>950,000원</td>
+                <td>95,000원</td>
+                <td><strong>855,000원</strong></td>
+                <td><span class="status-badge status-pending">대기</span></td>
+                <td>
+                  <button class="btn-mock btn-success" style="padding: 3px 10px; font-size: 0.8rem;">지급완료</button>
+                </td>
+              </tr>
+              <tr>
+                <td>STL-202411-001</td>
+                <td>2024년 11월</td>
+                <td>행복구강</td>
+                <td>780,000원</td>
+                <td>78,000원</td>
+                <td><strong>702,000원</strong></td>
+                <td><span class="status-badge status-approved">완료</span></td>
+                <td>
+                  <button class="btn-mock btn-secondary" style="padding: 3px 10px; font-size: 0.8rem;">상세</button>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>대기 상태 정산 확인</strong>
+            정산 예정일(익월 15일)에 맞춰 정산을 처리합니다.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>판매자 계좌로 송금</strong>
+            판매자가 등록한 정산 계좌로 정산금을 송금합니다.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>"지급완료" 버튼 클릭</strong>
+            송금 완료 후 시스템에서 지급완료 처리합니다.
+          </div>
+        </div>
+
+        <div class="tip">
+          <strong>💡 TIP:</strong> 정산 상세에서 해당 정산에 포함된 모든 주문 내역을 CSV로 다운로드할 수 있습니다.
+        </div>
+      </section>
+
+      <!-- 카테고리 관리 -->
+      <section class="section" id="categories">
+        <h2>7. 카테고리 관리</h2>
+        <p>상품 카테고리를 추가, 수정, 삭제합니다.</p>
+
+        <h3>7-1. 기본 카테고리</h3>
+        <table>
+          <tr>
+            <th>카테고리</th>
+            <th>설명</th>
+          </tr>
+          <tr>
+            <td>🪥 칫솔</td>
+            <td>일반 칫솔, 전동 칫솔 등</td>
+          </tr>
+          <tr>
+            <td>🧴 치약</td>
+            <td>일반 치약, 미백 치약, 시린이용 치약 등</td>
+          </tr>
+          <tr>
+            <td>🧵 치실</td>
+            <td>치실, 치간칫솔 등</td>
+          </tr>
+          <tr>
+            <td>💧 가글</td>
+            <td>구강청결제, 가글 등</td>
+          </tr>
+        </table>
+
+        <h3>7-2. 카테고리 추가</h3>
+        <div class="form-mock" style="max-width: 400px;">
+          <div class="field">
+            <label>카테고리명</label>
+            <div class="input-mock">새 카테고리</div>
+          </div>
+          <div class="field">
+            <label>설명</label>
+            <div class="input-mock">카테고리 설명</div>
+          </div>
+          <button class="btn-mock">카테고리 추가</button>
+        </div>
+
+        <div class="warning">
+          <strong>⚠️ 주의:</strong> 카테고리 삭제 시 해당 카테고리에 등록된 상품이 있으면 삭제할 수 없습니다. 먼저 상품을 다른 카테고리로 이동하세요.
+        </div>
+      </section>
+
+    </div>
+
+    <!-- 추가 안내 -->
+    <div class="content">
+      <section class="section">
+        <h2>📋 관리자 업무 체크리스트</h2>
+        <p>정기적으로 확인해야 할 업무 목록입니다.</p>
+
+        <h3>매일 확인</h3>
+        <ul style="margin-left: 20px;">
+          <li>☐ 승인 대기 중인 상품 검토 및 처리</li>
+          <li>☐ 승인 대기 중인 판매자 검토 및 처리</li>
+          <li>☐ 주문 현황 확인</li>
+          <li>☐ 고객 문의 확인</li>
+        </ul>
+
+        <h3>매월 확인 (말일)</h3>
+        <ul style="margin-left: 20px;">
+          <li>☐ 정산 생성</li>
+          <li>☐ 월간 매출 리포트 확인</li>
+        </ul>
+
+        <h3>매월 확인 (15일)</h3>
+        <ul style="margin-left: 20px;">
+          <li>☐ 정산 지급 처리</li>
+          <li>☐ 판매자 계좌 확인</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+
+  <footer>
+    <p><a href="index.html">← 메인으로 돌아가기</a></p>
+    <p style="margin-top: 10px;">© 2024 오랄케어 쇼핑몰</p>
+  </footer>
+</body>
+</html>

@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>든든케어(취약계층 인증) 가이드 - 오랄케어 쇼핑몰</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Malgun Gothic', -apple-system, sans-serif; background: #f5f5f5; color: #333; line-height: 1.8; }
+    .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+    header { background: linear-gradient(135deg, #059669 0%, #10B981 100%); color: white; padding: 40px 20px; }
+    header a { color: white; text-decoration: none; opacity: 0.8; }
+    header a:hover { opacity: 1; }
+    header h1 { font-size: 2rem; margin-top: 10px; }
+    .nav { background: white; padding: 15px 20px; border-bottom: 1px solid #E5E7EB; position: sticky; top: 0; z-index: 100; }
+    .nav ul { display: flex; gap: 20px; list-style: none; flex-wrap: wrap; }
+    .nav a { color: #4B5563; text-decoration: none; font-weight: 500; }
+    .nav a:hover { color: #059669; }
+    .content { background: white; margin: 20px 0; border-radius: 12px; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+    .section { padding: 40px; border-bottom: 1px solid #E5E7EB; }
+    .section:last-child { border-bottom: none; }
+    .section h2 { color: #059669; font-size: 1.5rem; margin-bottom: 20px; padding-bottom: 10px; border-bottom: 2px solid #D1FAE5; }
+    .section h3 { color: #1F2937; font-size: 1.2rem; margin: 25px 0 15px 0; }
+    .step { display: flex; gap: 20px; margin: 20px 0; padding: 20px; background: #F9FAFB; border-radius: 8px; }
+    .step-num { width: 40px; height: 40px; background: #059669; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: bold; flex-shrink: 0; }
+    .step-content { flex: 1; }
+    .step-content strong { display: block; margin-bottom: 5px; color: #1F2937; }
+    .screenshot { background: #E5E7EB; border-radius: 8px; padding: 20px; margin: 15px 0; text-align: center; border: 2px dashed #9CA3AF; }
+    .screenshot-mock { background: white; border-radius: 8px; padding: 20px; margin-top: 10px; text-align: left; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+    .tip { background: #D1FAE5; border-left: 4px solid #059669; padding: 15px 20px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+    .tip strong { color: #065F46; }
+    .warning { background: #FEF3C7; border-left: 4px solid #F59E0B; padding: 15px 20px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+    .warning strong { color: #B45309; }
+    .error { background: #FEE2E2; border-left: 4px solid #DC2626; padding: 15px 20px; margin: 15px 0; border-radius: 0 8px 8px 0; }
+    .error strong { color: #B91C1C; }
+    .btn-mock { display: inline-block; padding: 10px 20px; background: #059669; color: white; border-radius: 6px; font-size: 0.9rem; }
+    .btn-secondary { background: #6B7280; }
+    .input-mock { border: 1px solid #D1D5DB; padding: 10px; border-radius: 6px; width: 100%; margin: 5px 0; background: white; }
+    .form-mock { background: #F9FAFB; padding: 20px; border-radius: 8px; margin: 15px 0; }
+    .form-mock label { display: block; margin-bottom: 5px; font-weight: 500; color: #374151; }
+    .form-mock .field { margin-bottom: 15px; }
+    table { width: 100%; border-collapse: collapse; margin: 15px 0; }
+    th, td { padding: 12px; text-align: left; border-bottom: 1px solid #E5E7EB; }
+    th { background: #F3F4F6; font-weight: 600; }
+    .status-badge { padding: 4px 12px; border-radius: 20px; font-size: 0.85rem; font-weight: 500; }
+    .status-pending { background: #FEF3C7; color: #B45309; }
+    .status-approved { background: #D1FAE5; color: #065F46; }
+    .status-rejected { background: #FEE2E2; color: #B91C1C; }
+    .status-expired { background: #E5E7EB; color: #6B7280; }
+    footer { text-align: center; padding: 30px; color: #6B7280; }
+    .benefit-card { background: linear-gradient(135deg, #059669, #10B981); color: white; padding: 30px; border-radius: 12px; text-align: center; margin: 20px 0; }
+    .benefit-card .discount { font-size: 4rem; font-weight: bold; }
+    .benefit-card p { opacity: 0.9; margin-top: 10px; }
+    .type-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; margin: 20px 0; }
+    .type-card { background: #F0FDF4; border: 2px solid #D1FAE5; padding: 20px; border-radius: 8px; text-align: center; }
+    .type-card .icon { font-size: 2rem; margin-bottom: 10px; }
+    .type-card strong { display: block; color: #065F46; }
+    .upload-area { border: 2px dashed #D1D5DB; border-radius: 8px; padding: 30px; text-align: center; background: white; }
+    .upload-area:hover { border-color: #059669; }
+    .flow-chart { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 10px; margin: 20px 0; }
+    .flow-item { background: white; border: 2px solid #D1FAE5; padding: 15px 20px; border-radius: 8px; text-align: center; }
+    .flow-item.active { background: #D1FAE5; border-color: #059669; }
+    .flow-arrow { color: #059669; font-size: 1.5rem; }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="index.html">← 메인으로 돌아가기</a>
+      <h1>🛡️ 든든케어 (취약계층 인증) 가이드</h1>
+      <p>취약계층 고객을 위한 특별 할인 프로그램 안내</p>
+    </div>
+  </header>
+
+  <nav class="nav">
+    <div class="container">
+      <ul>
+        <li><a href="#intro">든든케어란?</a></li>
+        <li><a href="#target">인증 대상</a></li>
+        <li><a href="#benefit">혜택 안내</a></li>
+        <li><a href="#apply">신청 방법</a></li>
+        <li><a href="#documents">필요 서류</a></li>
+        <li><a href="#status">신청 상태</a></li>
+        <li><a href="#usage">할인 적용</a></li>
+        <li><a href="#faq">자주 묻는 질문</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <div class="container">
+    <div class="content">
+
+      <!-- 든든케어란? -->
+      <section class="section" id="intro">
+        <h2>1. 든든케어란?</h2>
+
+        <div class="screenshot">
+          <p>📸 화면 예시: 든든케어 안내</p>
+          <div class="screenshot-mock">
+            <div style="display: flex; gap: 20px; align-items: flex-start;">
+              <div style="width: 60px; height: 60px; background: #059669; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0;">
+                <span style="font-size: 1.5rem; color: white;">🛡️</span>
+              </div>
+              <div>
+                <h4 style="color: #059669; margin-bottom: 10px;">든든케어란?</h4>
+                <p style="color: #065F46; margin-bottom: 10px;">
+                  취약계층 고객님을 위한 특별 할인 프로그램입니다.
+                  든든케어 회원으로 인증되시면 <strong>모든 상품 30% 추가 할인</strong> 혜택을 받으실 수 있습니다.
+                </p>
+                <p style="font-size: 0.9rem; color: #6B7280;">
+                  <strong>인증 대상:</strong> 기초생활수급자, 차상위계층, 한부모가정, 장애인, 국가유공자, 다문화가정
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <p><strong>든든케어</strong>는 경제적으로 어려운 취약계층 고객분들의 구강 건강을 위해 마련된 특별 할인 프로그램입니다.</p>
+        <p>정부 또는 공공기관에서 발급한 증빙서류를 제출하여 인증을 받으면, 모든 상품에서 <strong>30% 추가 할인</strong> 혜택을 받을 수 있습니다.</p>
+
+        <div class="benefit-card">
+          <div class="discount">30%</div>
+          <p>모든 상품 추가 할인</p>
+          <p style="font-size: 0.9rem; margin-top: 15px;">
+            * 다른 할인 쿠폰과 중복 적용 가능
+          </p>
+        </div>
+      </section>
+
+      <!-- 인증 대상 -->
+      <section class="section" id="target">
+        <h2>2. 인증 대상</h2>
+        <p>다음에 해당하시는 분들은 든든케어 인증을 신청하실 수 있습니다.</p>
+
+        <div class="type-grid">
+          <div class="type-card">
+            <div class="icon">📋</div>
+            <strong>기초생활수급자</strong>
+            <p style="font-size: 0.85rem; color: #6B7280; margin-top: 5px;">국민기초생활보장 수급자</p>
+          </div>
+          <div class="type-card">
+            <div class="icon">📊</div>
+            <strong>차상위계층</strong>
+            <p style="font-size: 0.85rem; color: #6B7280; margin-top: 5px;">기준 중위소득 50% 이하</p>
+          </div>
+          <div class="type-card">
+            <div class="icon">👨‍👩‍👧</div>
+            <strong>한부모가정</strong>
+            <p style="font-size: 0.85rem; color: #6B7280; margin-top: 5px;">한부모가족 지원 대상</p>
+          </div>
+          <div class="type-card">
+            <div class="icon">♿</div>
+            <strong>장애인</strong>
+            <p style="font-size: 0.85rem; color: #6B7280; margin-top: 5px;">장애인 등록증 소지자</p>
+          </div>
+          <div class="type-card">
+            <div class="icon">🎖️</div>
+            <strong>국가유공자</strong>
+            <p style="font-size: 0.85rem; color: #6B7280; margin-top: 5px;">국가유공자 등록자</p>
+          </div>
+          <div class="type-card">
+            <div class="icon">🌍</div>
+            <strong>다문화가정</strong>
+            <p style="font-size: 0.85rem; color: #6B7280; margin-top: 5px;">다문화가족 확인서 소지자</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 혜택 안내 -->
+      <section class="section" id="benefit">
+        <h2>3. 혜택 안내</h2>
+
+        <table>
+          <tr>
+            <th>혜택</th>
+            <th>내용</th>
+          </tr>
+          <tr>
+            <td><strong>상품 할인</strong></td>
+            <td>모든 상품 30% 추가 할인</td>
+          </tr>
+          <tr>
+            <td><strong>중복 할인</strong></td>
+            <td>다른 쿠폰/프로모션과 중복 적용 가능</td>
+          </tr>
+          <tr>
+            <td><strong>유효 기간</strong></td>
+            <td>승인일로부터 1년간 유효</td>
+          </tr>
+          <tr>
+            <td><strong>갱신</strong></td>
+            <td>만료 전 재신청으로 연장 가능</td>
+          </tr>
+        </table>
+
+        <div class="tip">
+          <strong>💡 할인 계산 예시</strong><br>
+          상품 가격 10,000원인 경우:<br>
+          → 든든케어 할인 30% = <strong>7,000원</strong><br>
+          → 추가 10% 쿠폰 적용 시 = <strong>6,300원</strong>
+        </div>
+      </section>
+
+      <!-- 신청 방법 -->
+      <section class="section" id="apply">
+        <h2>4. 신청 방법</h2>
+
+        <h3>4-1. 든든케어 페이지 접속</h3>
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-content">
+            <strong>로그인 후 마이페이지 이동</strong>
+            쇼핑몰에 로그인한 후 상단 메뉴에서 "마이페이지"를 클릭합니다.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-content">
+            <strong>"든든케어" 메뉴 클릭</strong>
+            마이페이지 메뉴에서 "든든케어"를 클릭합니다.
+          </div>
+        </div>
+
+        <div class="screenshot">
+          <p>📸 화면 예시: 마이페이지 메뉴</p>
+          <div class="screenshot-mock">
+            <div style="display: flex; gap: 20px;">
+              <div style="width: 200px; background: #F3F4F6; padding: 15px; border-radius: 8px;">
+                <p style="font-weight: bold; margin-bottom: 10px;">마이페이지</p>
+                <p style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">주문 내역</p>
+                <p style="padding: 8px 0; border-bottom: 1px solid #E5E7EB;">쿠폰함</p>
+                <p style="padding: 8px 0; border-bottom: 1px solid #E5E7EB; color: #059669; font-weight: bold;">🛡️ 든든케어</p>
+                <p style="padding: 8px 0;">회원정보 수정</p>
+              </div>
+              <div style="flex: 1; padding: 15px;">
+                <p style="color: #6B7280;">← 이 메뉴를 클릭하세요</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>4-2. 신청서 작성</h3>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-content">
+            <strong>"든든케어 신청하기" 버튼 클릭</strong>
+            현재 상태가 "미인증"이면 신청 버튼이 표시됩니다.
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-content">
+            <strong>인증 유형 선택</strong>
+            본인에게 해당하는 인증 유형을 선택합니다.
+          </div>
+        </div>
+
+        <div class="form-mock">
+          <h4 style="margin-bottom: 15px;">든든케어 신청</h4>
+          <div class="field">
+            <label>인증 유형 <span style="color: red;">*</span></label>
+            <select class="input-mock">
+              <option>선택해주세요</option>
+              <option>기초생활수급자</option>
+              <option>차상위계층</option>
+              <option>한부모가정</option>
+              <option>장애인</option>
+              <option>국가유공자</option>
+              <option>다문화가정</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-content">
+            <strong>증빙서류 업로드</strong>
+            해당 자격을 증명할 수 있는 서류를 업로드합니다.
+          </div>
+        </div>
+
+        <div class="upload-area">
+          <div style="font-size: 2rem; margin-bottom: 10px;">📤</div>
+          <p>클릭하여 파일 선택</p>
+          <p style="font-size: 0.85rem; color: #9CA3AF; margin-top: 5px;">jpg, png, gif, webp, pdf (최대 10MB)</p>
+        </div>
+
+        <div class="step">
+          <div class="step-num">6</div>
+          <div class="step-content">
+            <strong>"신청하기" 버튼 클릭</strong>
+            모든 정보를 입력한 후 신청을 완료합니다.
+          </div>
+        </div>
+
+        <div class="screenshot">
+          <p>📸 화면 예시: 신청 완료</p>
+          <div class="screenshot-mock" style="text-align: center; padding: 40px;">
+            <div style="font-size: 3rem; margin-bottom: 15px;">✅</div>
+            <h4>신청이 완료되었습니다!</h4>
+            <p style="color: #6B7280; margin-top: 10px;">검토 후 결과를 알려드리겠습니다.</p>
+            <p style="color: #9CA3AF; font-size: 0.9rem; margin-top: 5px;">* 영업일 기준 1~3일 내 처리됩니다.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- 필요 서류 -->
+      <section class="section" id="documents">
+        <h2>5. 필요 서류</h2>
+        <p>인증 유형별로 다음 서류 중 하나를 제출해주세요.</p>
+
+        <table>
+          <tr>
+            <th>인증 유형</th>
+            <th>필요 서류</th>
+            <th>발급처</th>
+          </tr>
+          <tr>
+            <td><strong>기초생활수급자</strong></td>
+            <td>수급자 증명서</td>
+            <td>주민센터, 정부24</td>
+          </tr>
+          <tr>
+            <td><strong>차상위계층</strong></td>
+            <td>차상위 본인부담경감 대상자 증명서<br>또는 차상위 자활확인서</td>
+            <td>주민센터, 정부24</td>
+          </tr>
+          <tr>
+            <td><strong>한부모가정</strong></td>
+            <td>한부모가족 증명서</td>
+            <td>주민센터, 정부24</td>
+          </tr>
+          <tr>
+            <td><strong>장애인</strong></td>
+            <td>장애인 등록증 (복지카드)<br>또는 장애인 증명서</td>
+            <td>주민센터, 정부24</td>
+          </tr>
+          <tr>
+            <td><strong>국가유공자</strong></td>
+            <td>국가유공자 확인서<br>또는 국가유공자증</td>
+            <td>보훈청, 정부24</td>
+          </tr>
+          <tr>
+            <td><strong>다문화가정</strong></td>
+            <td>다문화가족 확인서</td>
+            <td>주민센터, 정부24</td>
+          </tr>
+        </table>
+
+        <div class="tip">
+          <strong>💡 서류 발급 방법</strong><br>
+          대부분의 증명서는 <a href="https://www.gov.kr" target="_blank" style="color: #059669;">정부24 (www.gov.kr)</a>에서 무료로 발급받을 수 있습니다.
+        </div>
+
+        <div class="warning">
+          <strong>⚠️ 주의사항</strong>
+          <ul style="margin-left: 20px; margin-top: 10px;">
+            <li>발급일로부터 3개월 이내의 서류만 인정됩니다.</li>
+            <li>개인정보(주민등록번호 뒷자리 등)는 가려서 제출하셔도 됩니다.</li>
+            <li>서류가 불명확할 경우 추가 서류를 요청할 수 있습니다.</li>
+          </ul>
+        </div>
+
+        <div class="error">
+          <strong>🚫 허위 서류 제출 시</strong><br>
+          허위 서류를 제출하시면 회원 자격이 박탈되며, 향후 서비스 이용이 제한될 수 있습니다.
+        </div>
+      </section>
+
+      <!-- 신청 상태 -->
+      <section class="section" id="status">
+        <h2>6. 신청 상태 확인</h2>
+        <p>신청 후 든든케어 페이지에서 현재 상태를 확인할 수 있습니다.</p>
+
+        <h3>6-1. 상태별 안내</h3>
+        <table>
+          <tr>
+            <th>상태</th>
+            <th>설명</th>
+          </tr>
+          <tr>
+            <td><span class="status-badge" style="background:#F3F4F6; color:#6B7280;">미인증</span></td>
+            <td>아직 신청하지 않은 상태입니다. 신청 버튼을 클릭하여 신청하세요.</td>
+          </tr>
+          <tr>
+            <td><span class="status-badge status-pending">심사중</span></td>
+            <td>신청이 접수되어 관리자가 검토 중입니다. 영업일 기준 1~3일 소요됩니다.</td>
+          </tr>
+          <tr>
+            <td><span class="status-badge status-approved">승인</span></td>
+            <td>인증이 완료되었습니다. 지금부터 30% 할인 혜택을 받으실 수 있습니다.</td>
+          </tr>
+          <tr>
+            <td><span class="status-badge status-rejected">거절</span></td>
+            <td>신청이 거절되었습니다. 거절 사유를 확인하고 재신청하세요.</td>
+          </tr>
+          <tr>
+            <td><span class="status-badge status-expired">만료</span></td>
+            <td>인증 유효기간(1년)이 만료되었습니다. 재신청이 필요합니다.</td>
+          </tr>
+        </table>
+
+        <h3>6-2. 처리 흐름</h3>
+        <div class="flow-chart">
+          <div class="flow-item">
+            <strong>📝 신청</strong>
+            <p style="font-size: 0.8rem; color: #6B7280;">서류 제출</p>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">
+            <strong>🔍 심사</strong>
+            <p style="font-size: 0.8rem; color: #6B7280;">1~3일</p>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item active">
+            <strong>✅ 승인</strong>
+            <p style="font-size: 0.8rem; color: #065F46;">혜택 적용</p>
+          </div>
+          <span class="flow-arrow">→</span>
+          <div class="flow-item">
+            <strong>📅 1년 후</strong>
+            <p style="font-size: 0.8rem; color: #6B7280;">재신청</p>
+          </div>
+        </div>
+
+        <h3>6-3. 승인된 경우 화면</h3>
+        <div class="screenshot">
+          <p>📸 화면 예시: 승인 상태</p>
+          <div class="screenshot-mock">
+            <div style="display: flex; align-items: center; gap: 15px; padding: 20px; background: #F0FDF4; border-radius: 8px;">
+              <div style="font-size: 2rem;">✅</div>
+              <div style="flex: 1;">
+                <div style="display: flex; align-items: center; gap: 10px;">
+                  <span class="status-badge status-approved">승인</span>
+                  <span style="color: #6B7280;">(기초생활수급자)</span>
+                </div>
+                <p style="font-size: 0.9rem; color: #6B7280; margin-top: 5px;">유효기간: 2025.12.15까지</p>
+              </div>
+              <div style="text-align: right;">
+                <p style="font-size: 2.5rem; font-weight: bold; color: #059669;">30%</p>
+                <p style="font-size: 0.85rem; color: #6B7280;">추가 할인</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>6-4. 거절된 경우</h3>
+        <p>신청이 거절되면 거절 사유가 표시됩니다. 사유를 확인하고 올바른 서류로 재신청하세요.</p>
+
+        <div class="screenshot">
+          <p>📸 화면 예시: 거절 상태</p>
+          <div class="screenshot-mock">
+            <div style="padding: 15px; background: #FEF2F2; border-radius: 8px;">
+              <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 10px;">
+                <span style="font-size: 1.5rem;">❌</span>
+                <span class="status-badge status-rejected">거절</span>
+              </div>
+              <div style="background: white; padding: 10px; border-radius: 4px; border-left: 3px solid #DC2626;">
+                <p style="font-size: 0.9rem; color: #B91C1C;"><strong>거절 사유:</strong> 제출하신 서류가 불명확합니다. 수급자 증명서의 성명과 발급일이 보이도록 다시 첨부해주세요.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 할인 적용 -->
+      <section class="section" id="usage">
+        <h2>7. 할인 적용 방법</h2>
+        <p>든든케어 인증이 완료되면 별도의 조작 없이 자동으로 할인이 적용됩니다.</p>
+
+        <h3>7-1. 상품 페이지에서</h3>
+        <div class="screenshot">
+          <p>📸 화면 예시: 상품 가격 표시</p>
+          <div class="screenshot-mock">
+            <div style="display: flex; gap: 20px;">
+              <div style="width: 150px; height: 150px; background: #F3F4F6; border-radius: 8px; display: flex; align-items: center; justify-content: center;">🪥</div>
+              <div>
+                <h4>프리미엄 칫솔 세트</h4>
+                <p style="text-decoration: line-through; color: #9CA3AF;">15,000원</p>
+                <p style="font-size: 1.5rem; font-weight: bold; color: #059669;">10,500원</p>
+                <div style="display: inline-flex; align-items: center; gap: 5px; background: #D1FAE5; padding: 3px 8px; border-radius: 4px; font-size: 0.85rem; color: #065F46;">
+                  🛡️ 든든케어 30% 할인 적용
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>7-2. 장바구니에서</h3>
+        <div class="screenshot">
+          <p>📸 화면 예시: 장바구니 할인 적용</p>
+          <div class="screenshot-mock">
+            <table>
+              <tr>
+                <th>상품</th>
+                <th>가격</th>
+                <th>수량</th>
+                <th>합계</th>
+              </tr>
+              <tr>
+                <td>프리미엄 칫솔 세트</td>
+                <td>
+                  <span style="text-decoration: line-through; color: #9CA3AF;">15,000원</span><br>
+                  <span style="color: #059669; font-weight: bold;">10,500원</span>
+                </td>
+                <td>2</td>
+                <td style="font-weight: bold;">21,000원</td>
+              </tr>
+            </table>
+            <div style="margin-top: 15px; padding: 10px; background: #D1FAE5; border-radius: 4px;">
+              <p style="font-size: 0.9rem; color: #065F46;">🛡️ 든든케어 할인: -9,000원</p>
+            </div>
+          </div>
+        </div>
+
+        <h3>7-3. 결제 시</h3>
+        <div class="screenshot">
+          <p>📸 화면 예시: 결제 금액</p>
+          <div class="screenshot-mock">
+            <div style="max-width: 300px;">
+              <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>상품 금액</span>
+                <span>30,000원</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #E5E7EB; color: #059669;">
+                <span>🛡️ 든든케어 할인</span>
+                <span>-9,000원</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #E5E7EB;">
+                <span>배송비</span>
+                <span>무료</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 12px 0; font-weight: bold; font-size: 1.1rem;">
+                <span>최종 결제금액</span>
+                <span style="color: #059669;">21,000원</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tip">
+          <strong>💡 TIP:</strong> 든든케어 할인은 쿠폰과 중복 적용됩니다. 쿠폰을 함께 사용하면 더 저렴하게 구매할 수 있습니다!
+        </div>
+      </section>
+
+      <!-- 자주 묻는 질문 -->
+      <section class="section" id="faq">
+        <h2>8. 자주 묻는 질문</h2>
+
+        <div style="margin: 20px 0;">
+          <div style="background: #F9FAFB; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+            <p style="font-weight: bold; color: #059669; margin-bottom: 10px;">Q. 신청 후 얼마나 기다려야 하나요?</p>
+            <p style="color: #4B5563;">영업일 기준 1~3일 내에 심사가 완료됩니다. 주말/공휴일은 처리되지 않으니 참고해주세요.</p>
+          </div>
+
+          <div style="background: #F9FAFB; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+            <p style="font-weight: bold; color: #059669; margin-bottom: 10px;">Q. 한 번 인증하면 계속 사용할 수 있나요?</p>
+            <p style="color: #4B5563;">든든케어 인증은 승인일로부터 1년간 유효합니다. 만료 전에 재신청하시면 계속 혜택을 받으실 수 있습니다.</p>
+          </div>
+
+          <div style="background: #F9FAFB; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+            <p style="font-weight: bold; color: #059669; margin-bottom: 10px;">Q. 다른 쿠폰과 중복으로 사용할 수 있나요?</p>
+            <p style="color: #4B5563;">네, 가능합니다! 든든케어 할인은 기본 적용되고, 추가로 보유한 쿠폰을 사용하실 수 있습니다.</p>
+          </div>
+
+          <div style="background: #F9FAFB; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+            <p style="font-weight: bold; color: #059669; margin-bottom: 10px;">Q. 신청이 거절되었어요. 어떻게 해야 하나요?</p>
+            <p style="color: #4B5563;">거절 사유를 확인하시고, 올바른 증빙서류를 준비하여 다시 신청해주세요. 서류가 불명확하거나 유효하지 않은 경우 거절될 수 있습니다.</p>
+          </div>
+
+          <div style="background: #F9FAFB; padding: 20px; border-radius: 8px; margin-bottom: 15px;">
+            <p style="font-weight: bold; color: #059669; margin-bottom: 10px;">Q. 가족 중 한 명이 인증받으면 가족 모두 혜택을 받을 수 있나요?</p>
+            <p style="color: #4B5563;">아니요, 든든케어 혜택은 인증받은 본인 계정에서만 적용됩니다. 가족 구성원도 혜택을 받으시려면 각자 계정으로 인증을 받으셔야 합니다.</p>
+          </div>
+
+          <div style="background: #F9FAFB; padding: 20px; border-radius: 8px;">
+            <p style="font-weight: bold; color: #059669; margin-bottom: 10px;">Q. 증빙서류에 개인정보가 있는데 어떻게 하나요?</p>
+            <p style="color: #4B5563;">주민등록번호 뒷자리 등 민감한 개인정보는 가려서 제출하셔도 됩니다. 성명, 발급일, 자격 종류가 확인 가능하면 충분합니다.</p>
+          </div>
+        </div>
+      </section>
+
+    </div>
+  </div>
+
+  <footer>
+    <p><a href="index.html">← 메인으로 돌아가기</a> | <a href="guide-buyer.html">구매자 가이드 →</a></p>
+    <p style="margin-top: 10px;">© 2024 오랄케어 쇼핑몰</p>
+  </footer>
+</body>
+</html>
