@@ -53,34 +53,19 @@ export default function HomePage() {
             </div>
 
             {/* 오른쪽: 든든동행회원 혜택 */}
-            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8">
-              <div className="text-center mb-6">
-                <span className="inline-block bg-yellow-400 text-primary-800 text-sm font-bold px-4 py-1 rounded-full mb-3">
-                  든든동행회원
-                </span>
-                <h2 className="text-2xl md:text-3xl font-bold">특별한 회원 혜택</h2>
-              </div>
-              <ul className="space-y-4">
-                <li className="flex items-center gap-3">
-                  <span className="w-8 h-8 bg-yellow-400 text-primary-800 rounded-full flex items-center justify-center font-bold text-sm">1</span>
-                  <span className="text-lg">전 상품 <strong className="text-yellow-300">10% 할인</strong></span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-8 h-8 bg-yellow-400 text-primary-800 rounded-full flex items-center justify-center font-bold text-sm">2</span>
-                  <span className="text-lg">월 1회 <strong className="text-yellow-300">무료 배송</strong></span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-8 h-8 bg-yellow-400 text-primary-800 rounded-full flex items-center justify-center font-bold text-sm">3</span>
-                  <span className="text-lg">신상품 <strong className="text-yellow-300">우선 알림</strong></span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <span className="w-8 h-8 bg-yellow-400 text-primary-800 rounded-full flex items-center justify-center font-bold text-sm">4</span>
-                  <span className="text-lg">포인트 <strong className="text-yellow-300">2배 적립</strong></span>
-                </li>
-              </ul>
-              <div className="mt-6 text-center">
-                <Link to="/register" className="btn bg-yellow-400 text-primary-800 hover:bg-yellow-300 font-bold px-8 py-3">
-                  지금 가입하기
+            <div className="bg-white rounded-2xl overflow-hidden shadow-xl">
+              <img
+                src="/donghang.png"
+                alt="든든동행회원 추가 30% 할인"
+                className="w-full h-auto"
+              />
+              <div className="p-6 bg-gradient-to-b from-yellow-50 to-white">
+                <p className="text-gray-700 text-sm mb-4 text-center">
+                  취약계층 고객님을 위한 특별 할인 프로그램<br/>
+                  <span className="text-xs text-gray-500">기초생활수급자 · 차상위계층 · 한부모가정 · 장애인 · 국가유공자 · 다문화가정</span>
+                </p>
+                <Link to="/mypage/ddcare" className="btn bg-primary-600 text-white hover:bg-primary-700 font-bold w-full py-3 text-center block">
+                  든든동행회원 인증하기
                 </Link>
               </div>
             </div>
