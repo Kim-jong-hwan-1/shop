@@ -452,6 +452,35 @@ router.post('/inquiries/:id/reply', [
 });
 
 // ==================== 카테고리 관리 ====================
+// 카테고리 목록 조회
+router.get('/categories', (req, res) => {
+  try {
+    const categories = db.prepare(`
+      SELECT c.id, c.name, c.slug, c.description, c.parent_id, c.sort_order, c.is_active,
+             (SELECT COUNT(*) FROM products WHERE category_id = c.id) as product_count
+      FROM categories c
+      ORDER BY c.sort_order ASC, c.name ASC
+    `).all();
+
+    // 계층 구조로 변환
+    const buildTree = (items, parentId = null) => {
+      return items
+        .filter(item => item.parent_id === parentId)
+        .map(item => ({
+          ...item,
+          children: buildTree(items, item.id)
+        }));
+    };
+
+    const categoryTree = buildTree(categories);
+
+    res.json({ categories: categoryTree, flatCategories: categories });
+  } catch (error) {
+    console.error('Admin get categories error:', error);
+    res.status(500).json({ error: '카테고리 목록 조회 중 오류가 발생했습니다.' });
+  }
+});
+
 router.post('/categories', [
   body('name').notEmpty().withMessage('카테고리명을 입력해주세요.')
 ], (req, res) => {
@@ -501,6 +530,32 @@ router.put('/categories/:id', (req, res) => {
   } catch (error) {
     console.error('Update category error:', error);
     res.status(500).json({ error: '카테고리 수정 중 오류가 발생했습니다.' });
+  }
+});
+
+// 카테고리 삭제
+router.delete('/categories/:id', (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // 해당 카테고리의 상품 수 확인
+    const productCount = db.prepare('SELECT COUNT(*) as count FROM products WHERE category_id = ?').get(id).count;
+
+    if (productCount > 0) {
+      // 상품이 있으면 미분류(null)로 변경
+      db.prepare('UPDATE products SET category_id = NULL WHERE category_id = ?').run(id);
+    }
+
+    // 하위 카테고리가 있으면 상위로 올림
+    db.prepare('UPDATE categories SET parent_id = NULL WHERE parent_id = ?').run(id);
+
+    // 카테고리 삭제
+    db.prepare('DELETE FROM categories WHERE id = ?').run(id);
+
+    res.json({ message: '카테고리가 삭제되었습니다.' });
+  } catch (error) {
+    console.error('Delete category error:', error);
+    res.status(500).json({ error: '카테고리 삭제 중 오류가 발생했습니다.' });
   }
 });
 
