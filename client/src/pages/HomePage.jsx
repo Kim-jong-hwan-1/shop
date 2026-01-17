@@ -29,24 +29,60 @@ export default function HomePage() {
       {/* 히어로 섹션 */}
       <section className="bg-gradient-to-r from-primary-600 to-primary-700 text-white">
         <div className="container-custom py-16 md:py-24">
-          <div className="max-w-2xl">
-            <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
-              건강한 구강을 위한
-              <br />
-              최고의 선택
-            </h1>
-            <p className="text-lg md:text-xl text-primary-100 mb-8">
-              전문가가 추천하는 프리미엄 구강용품을
-              <br />
-              합리적인 가격에 만나보세요
-            </p>
-            <div className="flex gap-4">
-              <Link to="/products" className="btn bg-white text-primary-700 hover:bg-gray-100 btn-lg">
-                전체 상품 보기
-              </Link>
-              <Link to="/products?featured=true" className="btn btn-outline border-white text-white hover:bg-white/10 btn-lg">
-                베스트 상품
-              </Link>
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            {/* 왼쪽: 메인 타이틀 */}
+            <div>
+              <h1 className="text-4xl md:text-5xl font-bold leading-tight mb-4">
+                건강한 구강을 위한
+                <br />
+                최고의 선택
+              </h1>
+              <p className="text-lg md:text-xl text-primary-100 mb-8">
+                전문가가 추천하는 프리미엄 구강용품을
+                <br />
+                합리적인 가격에 만나보세요
+              </p>
+              <div className="flex gap-4">
+                <Link to="/products" className="btn bg-white text-primary-700 hover:bg-gray-100 btn-lg">
+                  전체 상품 보기
+                </Link>
+                <Link to="/products?featured=true" className="btn btn-outline border-white text-white hover:bg-white/10 btn-lg">
+                  베스트 상품
+                </Link>
+              </div>
+            </div>
+
+            {/* 오른쪽: 든든동행회원 혜택 */}
+            <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6 md:p-8">
+              <div className="text-center mb-6">
+                <span className="inline-block bg-yellow-400 text-primary-800 text-sm font-bold px-4 py-1 rounded-full mb-3">
+                  든든동행회원
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold">특별한 회원 혜택</h2>
+              </div>
+              <ul className="space-y-4">
+                <li className="flex items-center gap-3">
+                  <span className="w-8 h-8 bg-yellow-400 text-primary-800 rounded-full flex items-center justify-center font-bold text-sm">1</span>
+                  <span className="text-lg">전 상품 <strong className="text-yellow-300">10% 할인</strong></span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-8 h-8 bg-yellow-400 text-primary-800 rounded-full flex items-center justify-center font-bold text-sm">2</span>
+                  <span className="text-lg">월 1회 <strong className="text-yellow-300">무료 배송</strong></span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-8 h-8 bg-yellow-400 text-primary-800 rounded-full flex items-center justify-center font-bold text-sm">3</span>
+                  <span className="text-lg">신상품 <strong className="text-yellow-300">우선 알림</strong></span>
+                </li>
+                <li className="flex items-center gap-3">
+                  <span className="w-8 h-8 bg-yellow-400 text-primary-800 rounded-full flex items-center justify-center font-bold text-sm">4</span>
+                  <span className="text-lg">포인트 <strong className="text-yellow-300">2배 적립</strong></span>
+                </li>
+              </ul>
+              <div className="mt-6 text-center">
+                <Link to="/register" className="btn bg-yellow-400 text-primary-800 hover:bg-yellow-300 font-bold px-8 py-3">
+                  지금 가입하기
+                </Link>
+              </div>
             </div>
           </div>
         </div>
