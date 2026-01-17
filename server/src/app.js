@@ -32,8 +32,21 @@ app.use(helmet({
 }));
 
 // CORS 설정
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://dlas.kr',
+  'https://www.dlas.kr',
+  process.env.CLIENT_URL
+].filter(Boolean);
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:3000',
+  origin: function(origin, callback) {
+    if (!origin || allowedOrigins.includes(origin)) {
+      callback(null, true);
+    } else {
+      callback(null, true); // 모든 origin 허용 (개발 편의)
+    }
+  },
   credentials: true
 }));
 
