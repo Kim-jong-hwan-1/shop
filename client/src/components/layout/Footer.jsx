@@ -65,12 +65,7 @@ export default function Footer() {
                 </Link>
               </li>
               <li>
-                <Link to="/guide/shipping" className="hover:text-white transition">
-                  배송 안내
-                </Link>
-              </li>
-              <li>
-                <Link to="/guide/refund" className="hover:text-white transition">
+                <Link to="/terms/refund" className="hover:text-white transition">
                   교환/반품 안내
                 </Link>
               </li>
@@ -78,23 +73,17 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* 결제 수단 & 인증 */}
+        {/* 결제 수단 */}
         <div className="border-t border-gray-800 mt-8 pt-8">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <div className="text-sm">
-              <p className="text-gray-500 mb-2">결제 수단</p>
-              <div className="flex items-center gap-2">
-                <span className="px-2 py-1 bg-gray-800 rounded text-xs">신용카드</span>
-                <span className="px-2 py-1 bg-gray-800 rounded text-xs">계좌이체</span>
-                <span className="px-2 py-1 bg-gray-800 rounded text-xs">카카오페이</span>
-                <span className="px-2 py-1 bg-gray-800 rounded text-xs">네이버페이</span>
-                <span className="px-2 py-1 bg-gray-800 rounded text-xs">토스페이</span>
-              </div>
+          <div className="text-sm">
+            <p className="text-gray-500 mb-2">결제 수단</p>
+            <div className="flex items-center gap-2">
+              <span className="px-2 py-1 bg-gray-800 rounded text-xs">신용카드</span>
+              <span className="px-2 py-1 bg-gray-800 rounded text-xs">계좌이체</span>
+              <span className="px-2 py-1 bg-gray-800 rounded text-xs">카카오페이</span>
+              <span className="px-2 py-1 bg-gray-800 rounded text-xs">네이버페이</span>
+              <span className="px-2 py-1 bg-gray-800 rounded text-xs">토스페이</span>
             </div>
-            <p className="text-xs text-gray-500">
-              DLAS는 통신판매중개자로서 통신판매의 당사자가 아니며,
-              상품의 예약, 이용 및 환불 등과 관련한 의무와 책임은 각 판매자에게 있습니다.
-            </p>
           </div>
         </div>
 
