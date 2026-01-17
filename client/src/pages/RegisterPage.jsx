@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useForm } from 'react-hook-form';
-import { Eye, EyeOff, Check, Store, User as UserIcon, AlertCircle } from 'lucide-react';
-import { authAPI, termsAPI } from '@/utils/api';
+import { Eye, EyeOff, Check } from 'lucide-react';
+import { authAPI } from '@/utils/api';
 import { useAuthStore } from '@/context/authStore';
 import { validators } from '@/utils/helpers';
 import toast from 'react-hot-toast';
@@ -15,7 +15,6 @@ export default function RegisterPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [isEmailChecked, setIsEmailChecked] = useState(false);
   const [isEmailAvailable, setIsEmailAvailable] = useState(false);
-  const [userType, setUserType] = useState('buyer');
 
   const {
     register,
@@ -74,35 +73,16 @@ export default function RegisterPage() {
       return;
     }
 
-    // 판매자인 경우 필수 필드 검증
-    if (userType === 'seller') {
-      if (!data.businessName?.trim()) {
-        setError('businessName', { message: '상호명을 입력해주세요.' });
-        return;
-      }
-      if (!data.businessNumber?.trim()) {
-        setError('businessNumber', { message: '사업자등록번호를 입력해주세요.' });
-        return;
-      }
-    }
-
     setIsLoading(true);
     try {
       const response = await authAPI.register({
         ...data,
-        userType,
+        userType: 'buyer',
         agreeTerms: String(data.agreeTerms),
         agreePrivacy: String(data.agreePrivacy),
       });
       setAuth(response.data.user, response.data.token);
-
-      if (userType === 'seller') {
-        toast.success('회원가입이 완료되었습니다!\n판매자 승인 후 상품 등록이 가능합니다.', {
-          duration: 5000
-        });
-      } else {
-        toast.success('회원가입이 완료되었습니다!');
-      }
+      toast.success('회원가입이 완료되었습니다!');
       navigate('/');
     } catch (error) {
       const message = error.response?.data?.error || '회원가입에 실패했습니다.';
@@ -122,47 +102,6 @@ export default function RegisterPage() {
 
         <div className="card p-8">
           <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
-            {/* 회원 유형 선택 */}
-            <div>
-              <label className="label">회원 유형 <span className="text-red-500">*</span></label>
-              <div className="grid grid-cols-2 gap-3">
-                <button
-                  type="button"
-                  onClick={() => setUserType('buyer')}
-                  className={`flex items-center justify-center gap-2 p-4 border-2 rounded-lg transition-all ${
-                    userType === 'buyer'
-                      ? 'border-primary-600 bg-primary-50 text-primary-700'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <UserIcon size={20} />
-                  <span className="font-medium">구매자</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setUserType('seller')}
-                  className={`flex items-center justify-center gap-2 p-4 border-2 rounded-lg transition-all ${
-                    userType === 'seller'
-                      ? 'border-primary-600 bg-primary-50 text-primary-700'
-                      : 'border-gray-200 hover:border-gray-300'
-                  }`}
-                >
-                  <Store size={20} />
-                  <span className="font-medium">판매자</span>
-                </button>
-              </div>
-              {userType === 'seller' && (
-                <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-lg">
-                  <div className="flex gap-2">
-                    <AlertCircle size={18} className="text-blue-600 flex-shrink-0 mt-0.5" />
-                    <p className="text-sm text-blue-700">
-                      판매자로 가입 시 관리자 승인 후 상품 등록이 가능합니다.
-                    </p>
-                  </div>
-                </div>
-              )}
-            </div>
-
             {/* 이메일 */}
             <div>
               <label htmlFor="email" className="label">
@@ -301,47 +240,6 @@ export default function RegisterPage() {
                 <p className="error-message">{errors.phone.message}</p>
               )}
             </div>
-
-            {/* 판매자 정보 (판매자 선택 시에만 표시) */}
-            {userType === 'seller' && (
-              <div className="space-y-4 p-4 bg-gray-50 rounded-lg border border-gray-200">
-                <h3 className="font-medium text-gray-900">판매자 정보</h3>
-
-                {/* 상호명 */}
-                <div>
-                  <label htmlFor="businessName" className="label">
-                    상호명 <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="businessName"
-                    className={`input ${errors.businessName ? 'input-error' : ''}`}
-                    placeholder="상호명을 입력해주세요"
-                    {...register('businessName')}
-                  />
-                  {errors.businessName && (
-                    <p className="error-message">{errors.businessName.message}</p>
-                  )}
-                </div>
-
-                {/* 사업자등록번호 */}
-                <div>
-                  <label htmlFor="businessNumber" className="label">
-                    사업자등록번호 <span className="text-red-500">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    id="businessNumber"
-                    className={`input ${errors.businessNumber ? 'input-error' : ''}`}
-                    placeholder="123-45-67890"
-                    {...register('businessNumber')}
-                  />
-                  {errors.businessNumber && (
-                    <p className="error-message">{errors.businessNumber.message}</p>
-                  )}
-                </div>
-              </div>
-            )}
 
             {/* 약관 동의 */}
             <div className="space-y-3 pt-4 border-t">
