@@ -118,12 +118,6 @@ export default function LoginPage() {
           </div>
         </div>
 
-        {/* 테스트 계정 안내 */}
-        <div className="mt-6 p-4 bg-gray-100 rounded-lg text-sm">
-          <p className="font-medium text-gray-700 mb-2">테스트 계정</p>
-          <p className="text-gray-600">이메일: admin@oralcare.com</p>
-          <p className="text-gray-600">비밀번호: admin123!</p>
-        </div>
       </div>
     </div>
   );
