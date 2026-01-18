@@ -8,17 +8,6 @@ export default function Footer() {
           {/* 회사 정보 */}
           <div className="md:col-span-2">
             <h2 className="text-3xl text-white mb-4" style={{ fontFamily: 'Cute Font, sans-serif' }}>DLAS 케어 샵</h2>
-            <p className="text-sm leading-relaxed mb-4">
-              덴탈 CAD 소프트웨어를 개발해 온 DLAS가 운영하는
-              <br />
-              취약계층을 위한 구강케어 전문 사회적 쇼핑몰입니다.
-              <br /><br />
-              경제적·환경적 이유로 기본적인 구강 위생용품조차
-              <br />
-              충분히 접근하기 어려운 분들을 위해
-              <br />
-              필수 구강케어 제품을 합리적인 가격과 안정적인 품질로 제공합니다.
-            </p>
             <div className="text-sm space-y-1">
               <p>상호명: DLAS | 대표: 김종환</p>
               <p>사업자등록번호: 753-06-03175</p>

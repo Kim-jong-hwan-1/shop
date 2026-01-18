@@ -38,8 +38,7 @@ export default function Header() {
     <header className="bg-white shadow-sm sticky top-0 z-50">
       {/* 상단 바 */}
       <div className="bg-primary-600 text-white text-sm py-1.5">
-        <div className="container-custom flex justify-between items-center">
-          <p>취약계층을 위한 구강케어 전문 사회적 쇼핑몰</p>
+        <div className="container-custom flex justify-end items-center">
           <div className="flex items-center gap-4">
             {isAuthenticated ? (
               <>
